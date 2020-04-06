@@ -21,6 +21,7 @@
 #include "WifiDriver.h"
 #include "Flash.h"
 #include "BankConfiguration.h"
+#include "Spi.h"
 
 namespace Hal
 {
@@ -30,16 +31,17 @@ class Hardware
 public:
 	Hardware();
 	~Hardware();
-	Gpio &GetGpio() { return _gpio; };
-	Leds &GetLeds() { return _leds; };
-	Spiffs &GetSpiffs() { return _spiffs; };
-	SdCard &GetSdCard() { return _sdCard; };
-	Camera &GetCamera() { return _camera; };
-	DebugPort &GetDebugPort() { return _debugPort; };
-	Rng &GetRng() { return _rng; };
-	WifiDriver &GetWifi() { return _wifiDriver; };
-	Flash &GetFlash() { return _flash; };
-	BankConfiguration &GetBunkConfiguration() { return _bankConfig; };
+	Gpio &GetGpio() { return _gpio; }
+	Leds &GetLeds() { return _leds; }
+	Spiffs &GetSpiffs() { return _spiffs; }
+	SdCard &GetSdCard() { return _sdCard; }
+	Camera &GetCamera() { return _camera; }
+	DebugPort &GetDebugPort() { return _debugPort; }
+	Rng &GetRng() { return _rng; }
+	WifiDriver &GetWifi() { return _wifiDriver; }
+	Flash &GetFlash() { return _flash; }
+	BankConfiguration &GetBunkConfiguration() { return _bankConfig; }
+	Spi &GetSpi() { return _spi; }
 
 	uint32_t Milliseconds();
 	void TimerCallback();
@@ -82,6 +84,7 @@ private:
 	WifiDriver _wifiDriver;
 	Flash _flash;
 	BankConfiguration _bankConfig;
+	Spi _spi;
 };
 } // namespace Hal
 

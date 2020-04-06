@@ -1,11 +1,10 @@
 {
 	"folders": [
 		{
-			"name": "WebCamera",
 			"path": "."
 		},
 		{
-			"path": "/home/yuri/projects/Esp32Cam/Projects/Esp32"
+			"path": "/home/yuri/projects/Intercom32/Projects/Esp32"
 		}
 	],
 	"settings": {

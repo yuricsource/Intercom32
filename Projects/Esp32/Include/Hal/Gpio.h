@@ -4,6 +4,11 @@
 
 #include "HalCommon.h"
 
+// Arduino Port
+#define OUTPUT 0
+#define INPUT 1
+#define INPUT_PULLUP 2
+
 typedef unsigned int uint32;
 
 namespace Hal
@@ -107,6 +112,7 @@ public:
 
 	bool Get(GpioIndex index);
 	void Set(GpioIndex index);
+	void Set(GpioIndex index, bool state);
 	void Reset(GpioIndex index);
 	void Toggle(GpioIndex index);
 
@@ -118,6 +124,9 @@ public:
 
 	void ConfigInput(GpioIndex index, Pull pull = Pull::Down);
 	void ConfigOutput(GpioIndex index, OutputType outputType);
+	
+	/// @brief Artduino Port
+	void ArduinoPinMode(int pin, int mode);
 
 private:
 	struct Pinout

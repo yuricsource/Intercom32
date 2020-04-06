@@ -110,4 +110,17 @@ void Gpio::ConfigOutput(Gpio::GpioIndex index, Gpio::OutputType outputType)
 	}
 }
 
+void Gpio::ArduinoPinMode(int pin, int mode)
+{
+	if (mode == OUTPUT)
+		SetMode(static_cast<GpioIndex>(pin), Mode::Output);
+	else if (mode == INPUT) 
+	    SetMode(static_cast<GpioIndex>(pin), Mode::Input);
+	else if (mode == INPUT_PULLUP) 
+	{
+		SetMode(static_cast<GpioIndex>(pin), Mode::Input);
+        SetPull(static_cast<GpioIndex>(pin), Pull::Up);
+	}
+}
+
 } // namespace Hal

@@ -19,7 +19,11 @@ COMPONENT_SRCDIRS           +=  ../../Esp32/Source/Hal                          
                                 ../System/Source/Protocol                                  \
                                 ../System/Source/Application                               \
                                 ../System/Libraries/freertos-addons/Source                 \
-                                ../System/Libraries/JsonParser
+                                ../System/Libraries/JsonParser                             \
+                                ../System/Libraries/Arduino/Adafruit-GFX                   \
+                                ../System/Libraries/Arduino/ArduinoPort                    \
+                                ../System/Libraries/Arduino/ArduinoPort/esp32
+
 COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                                    \
                                 ../../Esp32/Include/Hal                                    \
                                 ../../Esp32/Include/Hal/Camera/Conversions                 \
@@ -32,4 +36,7 @@ COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                         
                                 ../System/Include/Protocol                                 \
                                 ../System/Include/Application                              \
                                 ../System/Libraries/freertos-addons/Source/include         \
-                                ../System/Libraries/JsonParser
+                                ../System/Libraries/JsonParser                             \
+                                ../System/Libraries/Arduino/Adafruit-GFX                   \
+                                ../System/Libraries/Arduino/ArduinoPort                    \
+                                ../System/Libraries/Arduino/ArduinoPort/esp32

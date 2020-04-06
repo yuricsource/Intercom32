@@ -1,6 +1,6 @@
 
-#ifndef INCLUDE_HAL_EXTERNAL_FLASHT_H_
-#define INCLUDE_HAL_EXTERNAL_FLASHT_H_
+#ifndef INCLUDE_HAL_SPIFFS_H_
+#define INCLUDE_HAL_SPIFFS_H_
 
 #include "HalCommon.h"
 #include "esp_spiffs.h"
@@ -30,4 +30,4 @@ private:
 
 } // namespace Hal
 
-#endif /* INCLUDE_HAL_WDT_H_ */
+#endif /* INCLUDE_HAL_SPIFFS_H_ */

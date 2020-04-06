@@ -22,7 +22,8 @@ Hardware::Hardware() : _gpio(),
 					   _rng(),
 					   _wifiDriver(),
 					   _flash(),
-					   _bankConfig()
+					   _bankConfig(),
+					   _spi()
 {
 	esp_chip_info(&_mcuInfo);
 	esp_base_mac_addr_get(_macAdrress.data());

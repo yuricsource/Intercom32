@@ -7,6 +7,8 @@ PROJECT_NAME := app-intercom-esp32
 
 EXTRA_CFLAGS := -Wno-unused-local-typedefs
 
+#CXXFLAGS:=-DARDUINO=104
+
 include $(IDF_PATH)/make/project.mk
 
 
