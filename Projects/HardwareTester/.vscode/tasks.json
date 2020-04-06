@@ -1,0 +1,8 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "RunOpenocd",
+        "command": "killall openocd; delay 0.3; openocd -f debug/ftdi_ft2322.cfg -f debug/esp-wroom-32.cfg&", // Could be any other shell command
+        "type": "shell"
+    }]
+}

@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/IDF_PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/IDF_PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/IDF_PATH/value=/home/yuri/esp/esp-idf
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/PATH/value=/home/yuri/esp/crosstool-NG/builds/xtensa-esp32-elf/bin\:/bin\:/home/yuri/bin\:/home/yuri/.local/bin\:/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/usr/games\:/usr/local/games\:/snap/bin
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.cross.base.2133122700/appendContributed=true

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="cdt.managedbuild.toolchain.gnu.cross.base.2133122700">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.toolchain.gnu.cross.base.2133122700" moduleId="org.eclipse.cdt.core.settings" name="Build">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="cdt.managedbuild.toolchain.gnu.cross.base.2133122700" name="Build" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="org.eclipse.cdt.build.core.emptycfg">
+					<folderInfo id="cdt.managedbuild.toolchain.gnu.cross.base.2133122700.1237103705" name="/" resourcePath="">
+						<toolChain id="cdt.managedbuild.toolchain.gnu.cross.base.1501559715" name="Cross GCC" superClass="cdt.managedbuild.toolchain.gnu.cross.base">
+							<option id="cdt.managedbuild.option.gnu.cross.prefix.1153808943" name="Prefix" superClass="cdt.managedbuild.option.gnu.cross.prefix"/>
+							<option id="cdt.managedbuild.option.gnu.cross.path.2119610267" name="Path" superClass="cdt.managedbuild.option.gnu.cross.path"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.1346282303" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
+							<builder id="cdt.managedbuild.builder.gnu.cross.1796319401" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.2114747310" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.c.compiler.option.include.paths.1691832196" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_common/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/freertos/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/log/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/build/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/Include/Hal"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/include/soc/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_rom/include/esp32/rom/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/driver/include/driver"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/include/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/main/Libraries"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_adc_cal/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/esp32/include/soc"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/esp32/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/spi_flash/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/driver"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/spiffs/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/newlib/include/sys"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/newlib/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/fatfs/vfs"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/sdmmc/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/Include/Hal/Camera"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/include/soc"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.979467855" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.compiler.816854135" name="Cross G++ Compiler" superClass="cdt.managedbuild.tool.gnu.cross.cpp.compiler">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.compiler.option.include.paths.860407138" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/nvs_flash/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_event/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_common/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_wifi/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/freertos/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/tcpip_adapter/include/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp32/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/log/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/build/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/main/Include/Hal"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/include/soc/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_rom/include/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/include/"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/main/Libraries"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/esp_adc_cal/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/driver/include/driver"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/esp32/include/soc"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/esp32/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/spi_flash/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/driver"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/spiffs/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/newlib/include/sys"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/newlib/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/fatfs/vfs"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/sdmmc/include"/>
+									<listOptionValue builtIn="false" value="/home/yuri/YAR_Projects/HardwareVerificationEsp32/Include/Hal/Camera"/>
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf/components/soc/include/soc"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1090802837" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.c.linker.1935507379" name="Cross GCC Linker" superClass="cdt.managedbuild.tool.gnu.cross.c.linker"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.cpp.linker.212796024" name="Cross G++ Linker" superClass="cdt.managedbuild.tool.gnu.cross.cpp.linker">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.paths.243764038" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.cpp.link.option.libs.550906831" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="/home/yuri/esp/esp-idf"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.538613006" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+							<tool id="cdt.managedbuild.tool.gnu.cross.archiver.456524575" name="Cross GCC Archiver" superClass="cdt.managedbuild.tool.gnu.cross.archiver"/>
+							<tool id="cdt.managedbuild.tool.gnu.cross.assembler.571555168" name="Cross GCC Assembler" superClass="cdt.managedbuild.tool.gnu.cross.assembler">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="gnu.both.asm.option.include.paths.864501325" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/yuri/esp/esp-idf"/>
+								</option>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1836301175" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="EspIdf|EspComponents2|EspComponents" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="EspIdf"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="HardwareVerificationEsp32.null.89846797" name="HardwareVerificationEsp32"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Build">
+			<resource resourceType="PROJECT" workspacePath="/HardwareVerificationEsp32"/>
+		</configuration>
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/HardwareVerificationEsp32"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.2133122700;cdt.managedbuild.toolchain.gnu.cross.base.2133122700.1237103705;cdt.managedbuild.tool.gnu.cross.c.compiler.2114747310;cdt.managedbuild.tool.gnu.c.compiler.input.979467855">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.toolchain.gnu.cross.base.2133122700;cdt.managedbuild.toolchain.gnu.cross.base.2133122700.1237103705;cdt.managedbuild.tool.gnu.cross.cpp.compiler.816854135;cdt.managedbuild.tool.gnu.cpp.compiler.input.1090802837">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets/>
+	</storageModule>
+</cproject>
