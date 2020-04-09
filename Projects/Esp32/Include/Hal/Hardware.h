@@ -15,7 +15,6 @@
 #include "DebugPort.h"
 #include "Leds.h"
 #include "TimeLimit.h"
-#include "SdCard.h"
 #include "Camera.h"
 #include "Rng.h"
 #include "WifiDriver.h"
@@ -34,7 +33,6 @@ public:
 	Gpio &GetGpio() { return _gpio; }
 	Leds &GetLeds() { return _leds; }
 	Spiffs &GetSpiffs() { return _spiffs; }
-	SdCard &GetSdCard() { return _sdCard; }
 	Camera &GetCamera() { return _camera; }
 	DebugPort &GetDebugPort() { return _debugPort; }
 	Rng &GetRng() { return _rng; }
@@ -78,7 +76,6 @@ private:
 	esp_chip_info_t _mcuInfo;
 	MacAddress _macAdrress;
 	Camera _camera;
-	SdCard _sdCard;
 	Leds _leds;
 	Rng _rng;
 	WifiDriver _wifiDriver;
