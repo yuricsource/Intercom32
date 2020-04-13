@@ -12,12 +12,11 @@ class Leds
 {
 
 public:
-	static constexpr uint8_t MaxLeds = 2;
+	static constexpr uint8_t MaxLeds = 1;
 
 	enum class LedIndex : uint8_t
 	{
-		RedLed,
-		FlashLed,
+		Blue
 	};
 
 	Leds(Gpio *IoPins);
@@ -32,8 +31,7 @@ private:
 	Gpio *_gpio;
 	Gpio::GpioIndex ledsIndex[MaxLeds] =
 	{
-		Gpio::GpioIndex::Gpio33, // Red Led
-		Gpio::GpioIndex::Gpio4,  // Flash Led
+		Gpio::GpioIndex::Gpio2, // Blue Led
 	};
 };
 } // namespace Hal
