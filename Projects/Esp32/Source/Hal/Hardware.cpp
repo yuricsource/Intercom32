@@ -22,7 +22,9 @@ Hardware::Hardware() : _gpio(),
 					   _wifiDriver(),
 					   _flash(),
 					   _bankConfig(),
-					   _spi()
+					   _spi(),
+					   _timerInterruptHandler(),
+					   _timer(&_timerInterruptHandler, TimerSelect::Timer0)
 {
 	esp_chip_info(&_mcuInfo);
 	esp_base_mac_addr_get(_macAdrress.data());
@@ -60,6 +62,9 @@ Hardware::Hardware() : _gpio(),
 		printf("!!! Error: Only one instance of System can be created !!!\n");
 
 	_spiffs.Mount();
+	_timer.Initlialize();
+	_timer.AddCallback(this);
+	_timer.Start();
 }
 
 uint32_t Hardware::GetSystemClockBase()
@@ -162,6 +167,11 @@ Hardware::~Hardware()
 uint32_t Hardware::Milliseconds()
 {
 	return xTaskGetTickCount() * portTICK_PERIOD_MS;
+}
+
+void Hardware::TimerCallback()
+{
+	_leds.Toggle(Hal::Leds::LedIndex::Blue);
 }
 
 } // namespace Hal

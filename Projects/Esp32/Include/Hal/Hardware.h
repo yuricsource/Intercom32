@@ -21,11 +21,13 @@
 #include "Flash.h"
 #include "BankConfiguration.h"
 #include "Spi.h"
+#include "Timer.h"
+#include "TimerInterruptHandler.h"
 
 namespace Hal
 {
 
-class Hardware
+class Hardware : Timer::Callback
 {
 public:
 	Hardware();
@@ -40,7 +42,7 @@ public:
 	Flash &GetFlash() { return _flash; }
 	BankConfiguration &GetBunkConfiguration() { return _bankConfig; }
 	Spi &GetSpi() { return _spi; }
-
+	Timer &GetTimer0() {return _timer; }
 	uint32_t Milliseconds();
 	void TimerCallback();
 	ResetReason GetResetReason();
@@ -82,6 +84,8 @@ private:
 	Flash _flash;
 	BankConfiguration _bankConfig;
 	Spi _spi;
+	TimerInterruptHandler _timerInterruptHandler;
+	Timer _timer;
 };
 } // namespace Hal
 
