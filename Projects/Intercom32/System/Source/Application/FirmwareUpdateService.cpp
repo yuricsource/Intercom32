@@ -39,11 +39,6 @@ bool FirmwareUpdateService::eraseOtherBank()
 void FirmwareUpdateService::Run()
 {
 
-	if (eraseOtherBank())
-		Logger::LogInfo(Logger::LogSource::FirmwareUpdate, "Erased other bank successfully");
-	else
-		Logger::LogInfo(Logger::LogSource::FirmwareUpdate, "Erase command failed");
-
 	while (true)
 	{
 		vTaskDelay(1000);
