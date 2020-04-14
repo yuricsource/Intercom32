@@ -34,6 +34,7 @@ extern "C" void app_main(void)
 	ApplicationAgent::Instance()->GetHttpServer().Start();
 	ApplicationAgent::Instance()->GetGatewayService().Start();
 	ApplicationAgent::Instance()->GetFirmwareUpdateService().Start();
+	ApplicationAgent::Instance()->GetAudioPlayerService().Start();
 
 	for (;;)
 	{

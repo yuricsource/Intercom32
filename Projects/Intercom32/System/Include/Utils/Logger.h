@@ -23,6 +23,7 @@ public:
 		HttpServer,
 		Gateway,
 		FirmwareUpdate,
+		AudioPlayer,
 		Unknown = 255
 	};
 

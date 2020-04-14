@@ -7,6 +7,7 @@
 #include "GatewayService.h"
 #include "IPParser.h"
 #include "FirmwareUpdateService.h"
+#include "AudioPlayerService.h"
 
 namespace Applications
 {
@@ -27,10 +28,11 @@ public:
         return _applications;
     }
 
-    WifiService& GetWifi() {return *_wifiService;};
-    HttpServer& GetHttpServer(){return *_httpServer;};
-    GatewayService& GetGatewayService(){ return *_gatewayService;};
-    FirmwareUpdateService& GetFirmwareUpdateService(){ return *_firmwareUpdateService;};
+    WifiService& GetWifi() {return *_wifiService;}
+    HttpServer& GetHttpServer(){return *_httpServer;}
+    GatewayService& GetGatewayService(){ return *_gatewayService;}
+    FirmwareUpdateService& GetFirmwareUpdateService(){ return *_firmwareUpdateService;}
+    AudioPlayerService& GetAudioPlayerService() {return *_audioPlayerService;}
 
 private:
     static ApplicationAgent *_applications;
@@ -38,6 +40,7 @@ private:
     HttpServer *_httpServer;
     GatewayService *_gatewayService;
     FirmwareUpdateService * _firmwareUpdateService;
+    AudioPlayerService *_audioPlayerService;
 
 private:
     /// @brief	Hide Copy constructor.

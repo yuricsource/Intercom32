@@ -23,6 +23,7 @@ void ApplicationAgent::Initialize()
     _httpServer = new HttpServer(80);
     _gatewayService = new GatewayService();
     _firmwareUpdateService = new FirmwareUpdateService();
+    _audioPlayerService = new AudioPlayerService();
 }
 
 } // namespace Applications

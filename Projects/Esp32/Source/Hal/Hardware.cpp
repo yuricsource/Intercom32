@@ -171,7 +171,7 @@ uint32_t Hardware::Milliseconds()
 
 void Hardware::TimerCallback()
 {
-	_leds.Toggle(Hal::Leds::LedIndex::Blue);
+//	_leds.Toggle(Hal::Leds::LedIndex::Blue);
 }
 
 } // namespace Hal
