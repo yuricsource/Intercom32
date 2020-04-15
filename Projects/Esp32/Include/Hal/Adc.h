@@ -42,14 +42,14 @@ public:
 	Adc(Gpio *IoPins);
 	~Adc();
 	bool InitAdc(AdcIndex adcIndex);
-	uint32_t GetAdcValue(AdcIndex adcIndex);
-	uint32_t GetAdcVoltage(AdcIndex adcIndex);
+	uint32_t GetAdcValue(AdcIndex adcIndex, uint16_t averageSamples = 1);
+	uint32_t GetAdcVoltage(AdcIndex adcIndex, uint16_t averageSamples = 1);
 
 private:
 	Gpio *_gpio;
 
 	static constexpr uint16_t DefaultVref = 1100; // ESP comoment: Use adc2_vref_to_gpio() to obtain a better estimate
-	static constexpr uint8_t AverageSamples = 64;
+	// static constexpr uint8_t AverageSamples = 64;
 
 	enum class AdcSelection : uint8_t
 	{

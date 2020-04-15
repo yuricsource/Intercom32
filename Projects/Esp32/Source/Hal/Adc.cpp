@@ -32,20 +32,20 @@ bool Adc::InitAdc(AdcIndex adcIndex)
 	if (adcSelection == AdcSelection::Adc1)
 	{
 		adc1_config_width(ADC_WIDTH_BIT_12);
-		adc1_config_channel_atten((adc1_channel_t)channelSelected, ADC_ATTEN_DB_0);
+		adc1_config_channel_atten((adc1_channel_t)channelSelected, ADC_ATTEN_DB_11);
 	}
 	else
 	{
-		adc2_config_channel_atten((adc2_channel_t)channelSelected, ADC_ATTEN_DB_0);
+		adc2_config_channel_atten((adc2_channel_t)channelSelected, ADC_ATTEN_DB_11);
 	}
 
-	esp_adc_cal_characterize(static_cast<adc_unit_t>(adcSelection), ADC_ATTEN_DB_0, ADC_WIDTH_BIT_12, DefaultVref, &_adcCharacteristics[static_cast<uint8_t>(adcIndex)]);
+	esp_adc_cal_characterize(static_cast<adc_unit_t>(adcSelection), ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, DefaultVref, &_adcCharacteristics[static_cast<uint8_t>(adcIndex)]);
 
 	_gpio->SetAlternate(AdcPinSelect[static_cast<uint8_t>(adcIndex)], Gpio::AltFunc::Analog);
 	return true;
 }
 
-uint32_t Adc::GetAdcVoltage(AdcIndex adcIndex)
+uint32_t Adc::GetAdcVoltage(AdcIndex adcIndex, uint16_t averageSamples)
 {
 	uint8_t channelSelected = 0;
 	AdcSelection adcSelection = AdcSelection::Adc1;
@@ -61,7 +61,7 @@ uint32_t Adc::GetAdcVoltage(AdcIndex adcIndex)
 	}
 
 	uint32_t adc_reading = 0;
-	for (int i = 0; i < AverageSamples; i++)
+	for (int i = 0; i < averageSamples; i++)
 	{
 		if (adcSelection == AdcSelection::Adc1)
 		{
@@ -75,11 +75,11 @@ uint32_t Adc::GetAdcVoltage(AdcIndex adcIndex)
 		}
 	}
 
-	adc_reading /= AverageSamples;
+	adc_reading /= averageSamples;
 	return esp_adc_cal_raw_to_voltage(adc_reading, &_adcCharacteristics[static_cast<uint8_t>(adcIndex)]);
 }
 
-uint32_t Adc::GetAdcValue(AdcIndex adcIndex)
+uint32_t Adc::GetAdcValue(AdcIndex adcIndex, uint16_t averageSamples)
 {
 	uint8_t channelSelected = 0;
 	AdcSelection adcSelection = AdcSelection::Adc1;
@@ -95,7 +95,7 @@ uint32_t Adc::GetAdcValue(AdcIndex adcIndex)
 	}
 
 	uint32_t adc_reading = 0;
-	for (int i = 0; i < AverageSamples; i++)
+	for (int i = 0; i < averageSamples; i++)
 	{
 		if (adcSelection == AdcSelection::Adc1)
 		{
@@ -108,7 +108,7 @@ uint32_t Adc::GetAdcValue(AdcIndex adcIndex)
 			adc_reading += raw;
 		}
 	}
-	adc_reading /= AverageSamples;
+	adc_reading /= averageSamples;
 
 	return adc_reading;
 }
