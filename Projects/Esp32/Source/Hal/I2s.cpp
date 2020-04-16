@@ -6,9 +6,10 @@
 namespace Hal
 {
 
-I2s::I2s(Gpio *gpio, I2sBus i2sBus, I2sBitSample bitSample, I2sChannelMode channelMode) : _gpio(gpio), _i2s(i2sBus), _bitSample(bitSample), _channelMode(channelMode),
-																						  _channelFormat(I2sChannelFormat::ChannelFormatRightAndLeft), _dacMode(I2sDacMode::DacBothChannelsEnable),
-																						  _communicationStandardFormat(I2sCommunicationStandardFormat::CommunicationFormatI2sMSB)
+I2s::I2s(Gpio *gpio, I2sBus i2sBus, I2sBitSample bitSample, I2sChannelMode channelMode) :
+		_gpio(gpio), _i2s(i2sBus), _bitSample(bitSample), _channelMode(channelMode),
+		_channelFormat(I2sChannelFormat::ChannelFormatRightAndLeft), _dacMode(I2sDacMode::DacBothChannelsEnable),
+		_communicationStandardFormat(I2sCommunicationStandardFormat::CommunicationFormatI2s_PCM)
 {
 }
 
@@ -41,18 +42,18 @@ void I2s::Start()
 	if (_channelMode == I2sChannelMode::ChannelStereo)
 		_sampleRate = _sampleRate / 2;
 
-	i2s_config_t i2s_config = {
-		.mode = static_cast<i2s_mode_t>(DefaultConfigurationMode),
-		.sample_rate = static_cast<int>(_sampleRate),
-		.bits_per_sample = static_cast<i2s_bits_per_sample_t>(_bitSample),
-		.channel_format = (i2s_channel_fmt_t)_channelFormat,
-		.communication_format = static_cast<i2s_comm_format_t>(_communicationStandardFormat),
-		.intr_alloc_flags = 0,
-		.dma_buf_count = 2,
-		.dma_buf_len = 1024,
-		.use_apll = 1,
-		.tx_desc_auto_clear = false,
-		.fixed_mclk = 0};
+	i2s_config_t i2s_config = { };
+	i2s_config.mode = static_cast<i2s_mode_t>(DefaultConfigurationMode);
+	i2s_config.sample_rate = static_cast<int>(_sampleRate);
+	i2s_config.bits_per_sample = static_cast<i2s_bits_per_sample_t>(_bitSample);
+	i2s_config.channel_format = (i2s_channel_fmt_t) _channelFormat;
+	i2s_config.communication_format = static_cast<i2s_comm_format_t>(_communicationStandardFormat);
+	i2s_config.intr_alloc_flags = 0;
+	i2s_config.dma_buf_count = 2;
+	i2s_config.dma_buf_len = 1024;
+	i2s_config.use_apll = 1;
+	i2s_config.tx_desc_auto_clear = false;
+	i2s_config.fixed_mclk = 0;
 
 	//install and start i2s driver
 	i2s_driver_install(static_cast<i2s_port_t>(_i2s), &i2s_config, 0, nullptr);

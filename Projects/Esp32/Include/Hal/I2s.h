@@ -35,7 +35,7 @@ private:
 	I2sChannelFormat _channelFormat;
 	I2sDacMode _dacMode;
 	I2sCommunicationStandardFormat _communicationStandardFormat;
-	static constexpr uint16_t AudioBufferingSize = 512;
+	static constexpr uint16_t AudioBufferingSize = 1024;
 	uint8_t *_audioBuffer[AudioBufferingSize];
 	static constexpr uint32_t DefaultConfigurationMode = (I2S_MODE_MASTER | I2S_MODE_RX | I2S_MODE_TX | I2S_MODE_DAC_BUILT_IN | I2S_MODE_ADC_BUILT_IN);
 	bool _enabled = false;
