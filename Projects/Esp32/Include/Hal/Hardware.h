@@ -17,12 +17,14 @@
 #include "TimeLimit.h"
 #include "Camera.h"
 #include "Rng.h"
+#include "Adc.h"
 #include "WifiDriver.h"
 #include "Flash.h"
 #include "BankConfiguration.h"
 #include "Spi.h"
 #include "Timer.h"
 #include "TimerInterruptHandler.h"
+#include "I2s.h"
 
 namespace Hal
 {
@@ -42,7 +44,10 @@ public:
 	Flash &GetFlash() { return _flash; }
 	BankConfiguration &GetBunkConfiguration() { return _bankConfig; }
 	Spi &GetSpi() { return _spi; }
-	Timer &GetTimer0() {return _timer; }
+	Timer &GetTimer0() { return _timer; }
+	Adc &GetAdc() { return _adc; }
+	I2s &GetI2s() { return _i2s; }
+	
 	uint32_t Milliseconds();
 	void TimerCallback();
 	ResetReason GetResetReason();
@@ -73,6 +78,7 @@ public:
 private:
 	static Hardware *_pHardware;
 	Gpio _gpio;
+	Adc _adc;
 	DebugPort _debugPort;
 	Spiffs _spiffs;
 	esp_chip_info_t _mcuInfo;
@@ -86,6 +92,7 @@ private:
 	Spi _spi;
 	TimerInterruptHandler _timerInterruptHandler;
 	Timer _timer;
+	I2s _i2s;
 };
 } // namespace Hal
 

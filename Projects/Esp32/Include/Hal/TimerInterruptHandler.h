@@ -31,7 +31,7 @@ public:
 	void InterruptProcessor(Hal::Preemption preemption);
 	uint32_t GetLoad(Preemption preemption);
 	void SetLoad(Preemption preemption, uint32_t value);
-	static constexpr uint8_t TimerDivider = 16;								  //  Hardware timer clock divider
+	static constexpr uint8_t TimerDivider = 32;								  //  Hardware timer clock divider
 	static constexpr uint32_t CountsPerSecond = TimeBaseClock / TimerDivider; // convert counter value to seconds
 
 private:
