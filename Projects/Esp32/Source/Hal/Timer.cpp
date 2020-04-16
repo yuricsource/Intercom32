@@ -81,7 +81,7 @@ void Timer::SetTimer(uint32_t frequency)
 	if (frequency == 0)
 		return;
 
-	this->Frequency = frequency;
+	this->Frequency = (frequency + frequency / 25) * 2;
 	interruptHandler->SetFrequency(this);
 }
 
