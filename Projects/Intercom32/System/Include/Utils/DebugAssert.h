@@ -18,6 +18,11 @@
 
 #ifdef DEBUG
 /**
+ * @brief 							breaks in an assert
+ */
+#define DebugAssertFail(failMessage)		Utilities::DebugAssert::AssertFail(failMessage, __FILE__, __LINE__);
+
+/**
  * @brief Test the result, if different prints the error and breaks in an assert
  * @param function					The function the check the result
  * @param result					The result expected
@@ -60,6 +65,7 @@ public:
 	void Assert();
 
 public:
+	static void AssertFail(const char *message, const char *file, int line);
 	static void Assert(int rc, const char *file, int line, const char *function, const char *expression);
 	static void AssertWithoutBreaking(int rc, const char *file, int line, const char *function, const char *expression);
 	static const char *GetGeneralErrorName(int code);

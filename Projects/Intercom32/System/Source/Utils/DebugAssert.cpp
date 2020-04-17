@@ -5,6 +5,15 @@
 namespace Utilities
 {
 
+void DebugAssert::AssertFail(const char *message, const char *file, int line)
+{
+    printf("Assert failed: %s", message);
+    printf(" at %p\n", __builtin_return_address(0));
+    printf("file: \"%s\" line %d\n", file, line);
+    printf("PC: 0x%08x\r\n", (intptr_t)__builtin_return_address(0) - 3);
+    abort();
+}
+
 void DebugAssert::Assert(int rc, const char *file, int line, const char *function, const char *expression)
 {
     printf("Assert check failed: 0x%x", rc);

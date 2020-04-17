@@ -1,5 +1,6 @@
 
 #include "Adc.h"
+#include "DebugAssert.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -86,6 +87,7 @@ Adc::AdcIndex Adc::GetAdcIndexFromGpio(Gpio::GpioIndex gpio)
 		if (AdcPinSelect[i] == gpio)
 			return static_cast<Adc::AdcIndex>(i);
 	}
+	DebugAssertFail("Invalid Analog Channel by Gpio.");
 	return AdcIndex::InvalidAdc;
 }
 
