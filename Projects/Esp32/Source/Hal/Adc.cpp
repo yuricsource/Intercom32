@@ -79,6 +79,16 @@ uint32_t Adc::GetAdcVoltage(AdcIndex adcIndex, uint16_t averageSamples)
 	return esp_adc_cal_raw_to_voltage(adc_reading, &_adcCharacteristics[static_cast<uint8_t>(adcIndex)]);
 }
 
+Adc::AdcIndex Adc::GetAdcIndexFromGpio(Gpio::GpioIndex gpio)
+{
+	for (uint8_t i = 0; i < MaxAdcConverters; i++)
+	{
+		if (AdcPinSelect[i] == gpio)
+			return static_cast<Adc::AdcIndex>(i);
+	}
+	return AdcIndex::InvalidAdc;
+}
+
 uint32_t Adc::GetAdcValue(AdcIndex adcIndex, uint16_t averageSamples)
 {
 	uint8_t channelSelected = 0;

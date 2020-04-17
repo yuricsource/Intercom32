@@ -9,12 +9,13 @@
 
 namespace Applications
 {
+using Hal::Gpio;
 
 AudioPlayerService::AudioPlayerService() : cpp_freertos::Thread("AUDSVC", configAUDPLAYERSVC_STACK_DEPTH, 3),
-											_audioBuffer(BufferSeconds * AudioSampling),
-											_microphone(Adc::AdcIndex::Adc1Channel7) // ADC on IO35
+											_audioBuffer(BufferSeconds * AudioSampling)
 {
 	_hardware = Hardware::Instance();
+	_microphone = _hardware->GetAdc().GetAdcIndexFromGpio(Gpio::GpioIndex::Gpio35); //(Adc::AdcIndex::Adc1Channel7) // ADC on IO35
 }
 
 AudioPlayerService::~AudioPlayerService()
