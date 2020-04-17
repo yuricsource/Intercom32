@@ -13,20 +13,22 @@ namespace Hal
 
 Hardware *Hardware::_pHardware;
 
-Hardware::Hardware() : _gpio(),
-					   _adc(&_gpio),
-					   _debugPort(&_gpio, UartPort::Uart0, 115200, Gpio::GpioIndex::Gpio3, Gpio::GpioIndex::Gpio1),
-					   _spiffs(),
-					   _camera(&_gpio),
-					   _leds(&_gpio),
-					   _rng(),
-					   _wifiDriver(),
-					   _flash(),
-					   _bankConfig(),
-					   _spi(),
-					   _timerInterruptHandler(),
-					   _timer(&_timerInterruptHandler, TimerSelect::Timer0),
-					   _i2s(&_gpio, Hal::I2sBus::Bus_0, I2sBitSample::Sample16Bits, I2sChannelMode::ChannelMono)
+Hardware::Hardware() :	_gpio(),
+						_adc(&_gpio),
+						_debugPort(&_gpio, UartPort::Uart0, 115200, Gpio::GpioIndex::Gpio3, Gpio::GpioIndex::Gpio1),
+						_spiffs(),
+						_camera(&_gpio),
+						_leds(&_gpio),
+						_rng(),
+						_wifiDriver(),
+						_flash(),
+						_bankConfig(),
+						_spi(),
+						_timerInterruptHandler(),
+						_timer(&_timerInterruptHandler, TimerSelect::Timer0),
+					//    _i2s(&_gpio, Hal::I2sBus::Bus_0, I2sBitSample::Sample16Bits, I2sChannelMode::ChannelMono)
+						_dac(&_gpio, Gpio::GpioIndex::Gpio25)
+
 {
 	esp_chip_info(&_mcuInfo);
 	esp_base_mac_addr_get(_macAdrress.data());
@@ -63,7 +65,6 @@ Hardware::Hardware() : _gpio(),
 	else
 		printf("!!! Error: Only one instance of System can be created !!!\n");
 
-	_i2s.Start();
 	_spiffs.Mount();
 	_timer.Initlialize();
 	_timer.AddCallback(this);

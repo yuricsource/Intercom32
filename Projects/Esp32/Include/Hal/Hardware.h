@@ -24,7 +24,7 @@
 #include "Spi.h"
 #include "Timer.h"
 #include "TimerInterruptHandler.h"
-#include "I2s.h"
+#include "Dac.h"
 
 namespace Hal
 {
@@ -46,7 +46,8 @@ public:
 	Spi &GetSpi() { return _spi; }
 	Timer &GetTimer0() { return _timer; }
 	Adc &GetAdc() { return _adc; }
-	I2s &GetI2s() { return _i2s; }
+	// I2s &GetI2s() { return _i2s; }
+	Dac &GetDac() { return _dac; }
 	
 	uint32_t Milliseconds();
 	void TimerCallback();
@@ -92,7 +93,8 @@ private:
 	Spi _spi;
 	TimerInterruptHandler _timerInterruptHandler;
 	Timer _timer;
-	I2s _i2s;
+	// I2s _i2s;
+	Dac _dac;
 };
 } // namespace Hal
 

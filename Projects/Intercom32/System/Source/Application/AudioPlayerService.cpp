@@ -15,7 +15,7 @@ AudioPlayerService::AudioPlayerService() : cpp_freertos::Thread("AUDSVC", config
 											_audioBuffer(BufferSeconds * AudioSampling)
 {
 	_hardware = Hardware::Instance();
-	_microphone = _hardware->GetAdc().GetAdcIndexFromGpio(Gpio::GpioIndex::Gpio35); //(Adc::AdcIndex::Adc1Channel7) // ADC on IO35
+	_microphone = _hardware->GetAdc().GetAdcIndexFromGpio(Gpio::GpioIndex::Gpio35);
 }
 
 AudioPlayerService::~AudioPlayerService()
@@ -25,11 +25,12 @@ AudioPlayerService::~AudioPlayerService()
 void AudioPlayerService::Run()
 {
 	_hardware->GetAdc().InitAdc(_microphone);
+	_hardware->GetDac().Enable();
 	Logger::LogInfo(Utilities::Logger::LogSource::AudioPlayer, "Audio Player Task Initialized.");
 	Hal::Hardware::Instance()->GetTimer0().AddCallback(this);
 	Hal::Hardware::Instance()->GetTimer0().SetTimer(AudioSampling);
-	_hardware->GetI2s().Start();
-	_hardware->GetI2s().UpdateChannelClock(Hal::I2sBitSample::Sample16Bits, Hal::I2sChannelMode::ChannelMono, (AudioSampling + AudioSampling / 25) * 2);
+	// _hardware->GetI2s().Start();
+	// _hardware->GetI2s().UpdateChannelClock(Hal::I2sBitSample::Sample16Bits, Hal::I2sChannelMode::ChannelMono, (AudioSampling + AudioSampling / 25) * 2);
 	for(;;)
 	{
 		vTaskDelay(1);
@@ -47,7 +48,7 @@ void AudioPlayerService::Run()
 			// length = _audioBuffer.Used();
 			uint8_t tempBuffer[TempBufferSize];
 			length = _audioBuffer.Read(tempBuffer, TempBufferSize);
-			_hardware->GetI2s().Play(tempBuffer, length);
+			// _hardware->GetI2s().Play(tempBuffer, length);
 			// printf("len: %d \n", length);
 
 			// for(int i = 0; i < length; i ++)
@@ -56,7 +57,7 @@ void AudioPlayerService::Run()
 
 		}
 	}
-	_hardware->GetI2s().Stop();
+	// _hardware->GetI2s().Stop();
 }
 
 void AudioPlayerService::resetAudioBudder()
@@ -74,8 +75,9 @@ void AudioPlayerService::TimerCallback()
 		// convert 12 bit to 8 bits
 		uint32_t temp = _hardware->GetAdc().GetAdcValue(_microphone);
 		uint8_t value = static_cast<uint8_t>(temp >> 4);
-		// // Logger::LogInfo(Utilities::Logger::LogSource::AudioPlayer, "Value 8 bits: %d, Value 32 bits: %d", value, temp);
+		// Logger::LogInfo(Utilities::Logger::LogSource::AudioPlayer, "Value 8 bits: %d, Value 32 bits: %d", value, temp);
 		_audioBuffer.Write(&value, 1);
+		_hardware->GetDac().Set(value);
 	}
 	else
 	{
