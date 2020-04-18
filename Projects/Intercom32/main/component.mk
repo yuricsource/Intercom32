@@ -22,7 +22,8 @@ COMPONENT_SRCDIRS           +=  ../../Esp32/Source/Hal                          
                                 ../System/Libraries/JsonParser                             \
                                 ../System/Libraries/Arduino/Adafruit-GFX                   \
                                 ../System/Libraries/Arduino/ArduinoPort                    \
-                                ../System/Libraries/Arduino/ArduinoPort/esp32
+                                ../System/Libraries/Arduino/ArduinoPort/esp32              \
+                                ../System/Libraries/Arduino/Websocket 
 
 COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                                    \
                                 ../../Esp32/Include/Hal                                    \
@@ -39,4 +40,5 @@ COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                         
                                 ../System/Libraries/JsonParser                             \
                                 ../System/Libraries/Arduino/Adafruit-GFX                   \
                                 ../System/Libraries/Arduino/ArduinoPort                    \
-                                ../System/Libraries/Arduino/ArduinoPort/esp32
+                                ../System/Libraries/Arduino/ArduinoPort/esp32              \
+                                ../System/Libraries/Arduino/Websocket

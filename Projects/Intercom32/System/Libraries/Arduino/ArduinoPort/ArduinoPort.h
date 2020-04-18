@@ -10,6 +10,7 @@
 
 #include "HalCommon.h"
 #include "Hardware.h"
+#include "Base64.h"
 
 #define PROGMEM
 
