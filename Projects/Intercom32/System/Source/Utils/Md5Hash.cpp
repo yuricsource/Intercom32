@@ -1,7 +1,7 @@
 #include "Md5Hash.h"
 
 
-namespace Applications
+namespace Utilities
 {
 
 #define E(x, y, z) ((z) ^ ((x) & ((y) ^ (z))))

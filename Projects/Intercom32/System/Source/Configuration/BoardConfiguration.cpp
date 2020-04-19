@@ -24,7 +24,6 @@ void BoardConfiguration::DefaultConfiguration()
     // memcpy(_configuration.ServerConfig.connection.Address.data(), "www.google.com", sizeof("www.google.com"));
     memcpy(_configuration.ServerConfig.Connection.Address.data(), "192.168.1.109", sizeof("192.168.1.109"));
     
-    // IPParser::Parse("8.8.8.8", _configuration.WifiConfig.DnsServer);
     _configuration.ServerConfig.Connection.Port = 8080;
 #else
     /*HotSpot Configuration*/
@@ -107,11 +106,6 @@ BoardConfiguration::BoardConfiguration() : BaseConfiguration("Board Config")
     IPParser::Parse("0.0.0.0", _configuration.WifiConfig.Mask);
     IPParser::Parse("0.0.0.0", _configuration.WifiConfig.GatewayAddress);
     IPParser::Parse("8.8.8.8", _configuration.WifiConfig.DnsServer);
-
-    // IPAddress = IPADDR4_INIT(IPADDR_ANY);
-    // Mask = IPADDR4_INIT(IPADDR_ANY);
-    // GatewayAddress = IPADDR4_INIT(IPADDR_ANY);
-    // DnsServer = IPADDR4_INIT(IPADDR_ANY);
 }
 
 BoardConfiguration::~BoardConfiguration()

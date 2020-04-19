@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 
-namespace Applications
+namespace Utilities
 {
 
 class Md5Hash

@@ -89,7 +89,7 @@ struct BoardConfigurationData
     /// @brief	Server configuration.
     struct ServerConfiguration
     {
-        RemoteConnection connection = {};
+        RemoteConnection Connection = {};
 
         union _Settings {
             struct

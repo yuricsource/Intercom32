@@ -28,11 +28,11 @@ extern "C" void app_main(void)
 	Hardware * hardware = Hardware::Instance();
 	ConfigurationAgent::Instance();
 	ApplicationAgent::Instance();
-
+	ConfigurationAgent::Instance()->UseDefaultConfiguration();
 	ApplicationAgent::Instance()->Initialize();
 	ApplicationAgent::Instance()->GetWifi().Start();
 	ApplicationAgent::Instance()->GetHttpServer().Start();
-	ApplicationAgent::Instance()->GetGatewayService().Start();
+	// ApplicationAgent::Instance()->GetGatewayService().Start();
 	ApplicationAgent::Instance()->GetFirmwareUpdateService().Start();
 	ApplicationAgent::Instance()->GetAudioPlayerService().Start();
 

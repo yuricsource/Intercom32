@@ -12,7 +12,7 @@
       "miDebuggerPath": "xtensa-esp32-elf-gdb",
       "cwd": "${workspaceFolder}/build",
       //change the name of the elf file as required
-      "program": "${workspaceFolder}/build/app-web-camera.elf",
+      "program": "${workspaceFolder}/build/app-intercom-esp32.elf",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
@@ -22,7 +22,7 @@
         {
           // there's a bug in vs code that prevents us from using ${workspaceFolder} variable.
           // update the path as needed
-          "text": "file '/home/yuri/projects/Esp32Cam/Projects/WebCamera/build/app-web-camera.elf'"
+          "text": "file '/home/yuri//projects/Intercom32/Projects/Intercom32/build/app-intercom-esp32.elf'"
         },
         {
           "text": "target remote 127.0.0.1:3333"
