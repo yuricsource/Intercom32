@@ -16,16 +16,6 @@ Timer::Timer(Hal::TimerInterruptHandler *itrpHandler, TimerSelect timerSelected)
 		break;
 	}
 
-	// Initialize timer with 1 Hz
-	this->AutoReload = false;
-	this->Frequency = 1;
-
-	for (uint8_t i = 0; i < MaxTimerCallBack; i++)
-	{
-		callbackList[i] = nullptr;
-	}
-
-	interruptHandler->SetCallback(this);
 }
 
 Timer::~Timer()
@@ -37,7 +27,16 @@ void Timer::Initlialize()
 #ifdef DEBUG_TIMER
 	printf("Setting timer callback\n");
 #endif
+	// Initialize timer with 1 Hz
+	this->AutoReload = false;
+	this->Frequency = 1;
 
+	for (uint8_t i = 0; i < MaxTimerCallBack; i++)
+	{
+		callbackList[i] = nullptr;
+	}
+
+	interruptHandler->SetCallback(this);
 
 }
 

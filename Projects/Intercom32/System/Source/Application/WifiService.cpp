@@ -13,17 +13,17 @@ using Configuration::ConfigurationAgent;
 
 void WifiService::ConfigurationUpdated()
 {
-    BoardConfiguration &configuration = *ConfigurationAgent::Instance()->GetBoardConfiguration();
-    _authentication = configuration.GetConfiguration()->WifiConfig.AuthenticationMode;
-    _wifiMode = configuration.GetConfiguration()->WifiConfig.WifiMode;
-    _channel = configuration.GetConfiguration()->WifiConfig.Channel;
-    _useDhcp = configuration.GetConfiguration()->WifiConfig.Settings.Flags.DhcpEnabled;
-    memcpy(_ssid.data(), configuration.GetConfiguration()->WifiConfig.Ssid.data(),configuration.GetConfiguration()->WifiConfig.Ssid.size());
-    memcpy(_password.data(), configuration.GetConfiguration()->WifiConfig.Password.data(),configuration.GetConfiguration()->WifiConfig.Password.size());
-    ip_addr_copy(_ipAddress, configuration.GetConfiguration()->WifiConfig.IPAddress);
-    ip_addr_copy(_maskAddress, configuration.GetConfiguration()->WifiConfig.Mask);
-    ip_addr_copy(_gatewayAddress, configuration.GetConfiguration()->WifiConfig.GatewayAddress);
-    ip_addr_copy(_dnsServer, configuration.GetConfiguration()->WifiConfig.DnsServer);
+    BoardConfiguration* configuration = ConfigurationAgent::Instance()->GetBoardConfiguration();
+    _authentication = configuration->GetConfiguration()->WifiConfig.AuthenticationMode;
+    _wifiMode = configuration->GetConfiguration()->WifiConfig.WifiMode;
+    _channel = configuration->GetConfiguration()->WifiConfig.Channel;
+    _useDhcp = configuration->GetConfiguration()->WifiConfig.Settings.Flags.DhcpEnabled;
+    memcpy(_ssid.data(), configuration->GetConfiguration()->WifiConfig.Ssid.data(),configuration->GetConfiguration()->WifiConfig.Ssid.size());
+    memcpy(_password.data(), configuration->GetConfiguration()->WifiConfig.Password.data(),configuration->GetConfiguration()->WifiConfig.Password.size());
+    memcpy(&_ipAddress, &configuration->GetConfiguration()->WifiConfig.IPAddress, sizeof(ip_addr_t));
+    memcpy(&_maskAddress, &configuration->GetConfiguration()->WifiConfig.Mask, sizeof(ip_addr_t));
+    memcpy(&_gatewayAddress, &configuration->GetConfiguration()->WifiConfig.GatewayAddress, sizeof(ip_addr_t));
+    memcpy(&_dnsServer, &configuration->GetConfiguration()->WifiConfig.DnsServer,  sizeof(ip_addr_t));
     changeState(WifiState::ResetAdapter);
 }
 

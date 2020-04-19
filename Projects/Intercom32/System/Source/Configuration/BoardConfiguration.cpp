@@ -6,6 +6,8 @@
 using Common::IpAddress;
 using Protocol::IPParser;
 
+#define TEST_CLIENT
+
 namespace Configuration
 {
 
@@ -19,9 +21,11 @@ void BoardConfiguration::DefaultConfiguration()
     _configuration.WifiConfig.WifiMode = WifiModeConfiguration::Client;
     sprintf(_configuration.WifiConfig.Ssid.data(), "%s", "Yuri_Duda");
     sprintf(_configuration.WifiConfig.Password.data(), "%s", "Australia2us");
-    memcpy(_configuration.ServerConfig.connection.Address.data(), "www.google.com", sizeof("www.google.com"));
-    // memcpy(_configuration.ServerConfig.connection.Address.data(), "192.168.0.102", sizeof("192.168.0.102"));
-    _configuration.ServerConfig.connection.Port = 3333;
+    // memcpy(_configuration.ServerConfig.connection.Address.data(), "www.google.com", sizeof("www.google.com"));
+    memcpy(_configuration.ServerConfig.Connection.Address.data(), "192.168.1.109", sizeof("192.168.1.109"));
+    
+    // IPParser::Parse("8.8.8.8", _configuration.WifiConfig.DnsServer);
+    _configuration.ServerConfig.Connection.Port = 8080;
 #else
     /*HotSpot Configuration*/
     _configuration.WifiConfig.Channel = 8;
@@ -99,6 +103,15 @@ bool BoardConfiguration::Serialize(char *json, int length)
 
 BoardConfiguration::BoardConfiguration() : BaseConfiguration("Board Config")
 {
+    IPParser::Parse("0.0.0.0", _configuration.WifiConfig.IPAddress);
+    IPParser::Parse("0.0.0.0", _configuration.WifiConfig.Mask);
+    IPParser::Parse("0.0.0.0", _configuration.WifiConfig.GatewayAddress);
+    IPParser::Parse("8.8.8.8", _configuration.WifiConfig.DnsServer);
+
+    // IPAddress = IPADDR4_INIT(IPADDR_ANY);
+    // Mask = IPADDR4_INIT(IPADDR_ANY);
+    // GatewayAddress = IPADDR4_INIT(IPADDR_ANY);
+    // DnsServer = IPADDR4_INIT(IPADDR_ANY);
 }
 
 BoardConfiguration::~BoardConfiguration()
