@@ -10,8 +10,15 @@ namespace Protocol
 class WebsocketPath : public BaseRouteHandler
 {
 public:
+    WebsocketPath();
+    ~WebsocketPath();
+    bool DoHandshake(char * path, char * host);
 
 private:
+    bool analyzeRequest(char * path, char * host);
+
+    void disconnectStream();
+
     void receivedData(const uint8_t *data, uint16_t length) override;
 
     void connectionStateChanged(ConnectionState state, ConnectionChangeReason reason) override;
@@ -27,12 +34,6 @@ private:
 	void terminate() override;
 
 	void process() override;
-
-	static constexpr uint16_t MaxHayStackLength = HayStackMaxSize;
-	
-	std::array<char, MaxHayStackLength> _hayStack = { };
-	
-	uint16_t _hayStackWorkingLength = 0;
 
 private:
     /// @brief	Hide Copy constructor.

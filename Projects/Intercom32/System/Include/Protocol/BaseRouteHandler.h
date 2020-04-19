@@ -2,6 +2,7 @@
 
 #include "TimeLimit.h"
 #include "BaseConnection.h"
+#include "CommonConnection.h"
 
 namespace Protocol
 {
@@ -96,7 +97,12 @@ protected:
 	{
 		return _remoteConnection;
 	}
-
+	
+	static constexpr uint16_t MaxHayStackLength = HayStackMaxSize;
+	
+	char _hayStack[MaxHayStackLength] = { };
+	
+	uint16_t _hayStackWorkingLength = 0;
 
 private:
 	virtual void setConnection() = 0;

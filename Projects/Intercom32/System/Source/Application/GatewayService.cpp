@@ -1,5 +1,6 @@
 #include "GatewayService.h"
 #include "ConfigurationAgent.h"
+#include "WebSocket.h"
 
 namespace Applications
 {
@@ -13,15 +14,16 @@ GatewayService::GatewayService() : cpp_freertos::Thread("GWSVC", configGATEWAYSV
     _connectionPath.Protocol = ProtocolType::Websocket;
     _connectionPath.TransportLayer = TransportLayerType::Wifi;
     _connectionPath.Connection = new TcpConnection();
-    _connectionPath.RouteHandler = nullptr;
+    _connectionPath.RouteHandler = new Protocol::WebsocketPath();
 }
 
 void GatewayService::Run()
 {
     vTaskDelay(6000);
 
-    RemoteConnection *connection = &ConfigurationAgent::Instance()->GetBoardConfiguration()->GetConfiguration()->ServerConfig.connection;
-
+    RemoteConnection *connection = &ConfigurationAgent::Instance()->GetBoardConfiguration()->GetConfiguration()->ServerConfig.Connection;
+    _connectionPath.RouteHandler->SetConnection(_connectionPath.Connection);
+    
     for (;;)
     {
         switch (_connectionState)
@@ -36,8 +38,14 @@ void GatewayService::Run()
             break;
 
         case ConnectionState::TryToConnect:
-            _connectionPath.Connection->Connect(*connection);
-            changeState(ConnectionState::EstablishConnection);
+            if (BaseConnection::ConnectStatus::SuccessfullyConnected == _connectionPath.Connection->Connect(*connection))
+            {
+                changeState(ConnectionState::EstablishConnection);
+            }
+            else
+            {
+                changeState(ConnectionState::RestartConnection);
+            }
             break;
 
         case ConnectionState::EstablishConnection:
