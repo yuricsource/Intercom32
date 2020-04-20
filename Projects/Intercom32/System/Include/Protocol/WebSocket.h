@@ -29,7 +29,7 @@ private:
 
 	bool isTerminated() const override;
 
-	bool start(BaseRouteHandler::ConnectionMode connectionMode, RemoteConnection *address, uint8_t processingIndex, uint8_t processingLogicalId) override;
+	bool start() override;
 
 	void terminate() override;
 

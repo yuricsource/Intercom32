@@ -12,12 +12,6 @@ using Hal::TimeLimit;
 class BaseRouteHandler
 {
 public:
-	enum class ConnectionMode
-	{
-		ConnectionNotConfigured = 0,
-		TestConnection,
-		DataConnection
-	};
 
 	enum class ConnectionExecutionResult
 	{
@@ -48,9 +42,9 @@ public:
 		return isTerminated();
 	}
 
-	bool Start(ConnectionMode connectionMode, RemoteConnection *address, uint8_t processingIndex, uint8_t processingLogicalId)
+	bool Start()
 	{
-		return start(connectionMode, address, processingIndex, processingLogicalId);
+		return start();
 	}
 
 	void Terminate()
@@ -65,20 +59,10 @@ public:
 
 	void SetConnection(BaseConnection* connection)
 	{
-		//_pathDataExchangeHandler.SetPathInfo(&_pathInfo);
-		//RedefineDescription();
-		
-		// Assign or remove connection
 		if (connection == nullptr)
-		{
 			_connection = nullptr;
-			//DoSetConnection();
-		}
 		else
-		{
 			_connection = connection;
-			//DoSetConnection();
-		}
 	}
 	
 
@@ -109,7 +93,7 @@ private:
 
 	virtual bool isTerminated() const = 0;
 
-	virtual bool start(ConnectionMode connectionMode, RemoteConnection *address, uint8_t processingIndex, uint8_t processingLogicalId) = 0;
+	virtual bool start() = 0;
 
 	virtual void terminate() = 0;
 

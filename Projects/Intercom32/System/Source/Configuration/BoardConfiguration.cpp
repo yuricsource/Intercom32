@@ -18,19 +18,20 @@ void BoardConfiguration::DefaultConfiguration()
 
 #ifdef TEST_CLIENT
     /*Client Configuration*/
+    _configuration.WifiConfig.WifiMode = WifiModeConfiguration::HotSpot;
     _configuration.WifiConfig.WifiMode = WifiModeConfiguration::Client;
-    sprintf(_configuration.WifiConfig.Ssid.data(), "%s", "Yuri_Duda");
-    sprintf(_configuration.WifiConfig.Password.data(), "%s", "Australia2us");
+    memcpy(_configuration.WifiConfig.Ssid.data(), "Yuri_Duda", strlen("Yuri_Duda"));
+    memcpy(_configuration.WifiConfig.Password.data(), "Australia2us", strlen("Australia2us"));
     // memcpy(_configuration.ServerConfig.connection.Address.data(), "www.google.com", sizeof("www.google.com"));
-    memcpy(_configuration.ServerConfig.Connection.Address.data(), "192.168.1.109", sizeof("192.168.1.109"));
-    
+    memcpy(_configuration.ServerConfig.Connection.Address.data(), "192.168.1.109", strlen("192.168.1.109"));
     _configuration.ServerConfig.Connection.Port = 8080;
+
 #else
     /*HotSpot Configuration*/
     _configuration.WifiConfig.Channel = 8;
     _configuration.WifiConfig.WifiMode = WifiModeConfiguration::HotSpot;
-    sprintf(_configuration.WifiConfig.Ssid.data(), "%s", "WebCamera hotspot");
-    sprintf(_configuration.WifiConfig.Password.data(), "%s", "12345678");
+    memcpy(_configuration.WifiConfig.Ssid.data(), "WebCamera hotspot", sizeof("WebCamera hotspot"));
+    memcpy(_configuration.WifiConfig.Password.data(), "12345678", sizeof("12345678"));
     _configuration.WifiConfig.AuthenticationMode = WifiAuthenticationMode::Wpa2Psk;
 #endif
 }

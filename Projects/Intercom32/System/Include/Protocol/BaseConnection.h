@@ -32,7 +32,13 @@ public:
 	
 	ConnectStatus Connect(const RemoteConnection &remoteConnection)
 	{
+		memcpy(&_remoteConnection, &remoteConnection, sizeof(RemoteConnection));
 		return DoConnect(remoteConnection);
+	}
+
+	const RemoteConnection* GetRemoteConnection()
+	{
+		return &_remoteConnection;
 	}
 
 	bool Send(const unsigned char *data, uint16_t length)
@@ -134,6 +140,8 @@ private:
 	virtual void DoReset() = 0;
 
 	virtual bool IsConnected() = 0;
+
+	RemoteConnection _remoteConnection = {};
 
 protected:
 	~BaseConnection()

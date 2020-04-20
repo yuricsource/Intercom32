@@ -227,7 +227,7 @@ enum class CameraErrorCode : uint8_t
 	CameraNotSupported
 };
 
-enum class WifiModeConfiguration : uint8_t
+enum class WifiModeConfiguration
 {
 	Client,
 	HotSpot,

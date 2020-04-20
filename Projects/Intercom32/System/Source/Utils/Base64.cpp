@@ -25,7 +25,7 @@ void Base64::Encode(uint8_t *input, uint16_t inputLength, uint8_t *base, uint16_
 	}
 }
 
-uint16_t GetBufferLength(uint16_t length)
+uint16_t Base64::GetBufferLength(uint16_t length)
 {
 	return (length + 2) / 3 * 4;
 }

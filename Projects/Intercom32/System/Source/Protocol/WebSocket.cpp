@@ -65,8 +65,9 @@ void WebsocketPath::disconnectStream()
 
 bool WebsocketPath::analyzeRequest(char * path, char * host) 
 {
+    char sendingBuffer[500] = {};
+    uint16_t offset = 0;
     array<uint8_t, 64> temp = {};
-
     int bite = 0;
     bool foundupgrade = false;
     unsigned long intkey[2] = {};
@@ -87,20 +88,60 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
 
 #ifdef DEBUGGING
     Serial.println(F("Sending websocket upgrade headers"));
-#endif    
-    sendFrame((uint8_t*)"GET ", sizeof("GET "));
-    sendFrame((uint8_t*)path, strlen(path));
-    sendFrame((uint8_t*)" HTTP/1.1\r\n", strlen(" HTTP/1.1\r\n"));
-    sendFrame((uint8_t*)"Upgrade: websocket\r\n", strlen("Upgrade: websocket\r\n"));
-    sendFrame((uint8_t*)"Connection: Upgrade\r\n", strlen("Connection: Upgrade\r\n"));
-    sendFrame((uint8_t*)"Host: ", strlen("Host: "));
-    sendFrame((uint8_t*)host, strlen(host));
-    sendFrame((uint8_t*)CRLF, strlen(CRLF));
-    sendFrame((uint8_t*)"Sec-WebSocket-Key: ", strlen("Sec-WebSocket-Key: "));
-    sendFrame((uint8_t*)key.data(), strlen(key.data()));
-    sendFrame((uint8_t*)CRLF, strlen(CRLF));
-    sendFrame((uint8_t*)"Sec-WebSocket-Version: 13\r\n", strlen("Sec-WebSocket-Version: 13\r\n"));
-    sendFrame((uint8_t*)CRLF, strlen(CRLF));
+#endif
+    memcpy(sendingBuffer + offset,"GET ", strlen("GET "));
+    offset += strlen("GET ");
+    // sendFrame((uint8_t*)"GET ", strlen("GET "));
+
+    memcpy(sendingBuffer + offset,path, strlen(path));
+    offset +=  strlen(path);
+    // sendFrame((uint8_t*)path, strlen(path));
+
+    memcpy(sendingBuffer + offset, " HTTP/1.1\r\n", strlen(" HTTP/1.1\r\n"));
+    offset +=  strlen(" HTTP/1.1\r\n");
+    // sendFrame((uint8_t*)" HTTP/1.1\r\n", strlen(" HTTP/1.1\r\n"));
+
+    memcpy(sendingBuffer + offset, "Upgrade: websocket\r\n", strlen("Upgrade: websocket\r\n"));
+    offset +=  strlen("Upgrade: websocket\r\n");
+    // sendFrame((uint8_t*)"Upgrade: websocket\r\n", strlen("Upgrade: websocket\r\n"));
+
+    memcpy(sendingBuffer + offset, "Connection: Upgrade\r\n", strlen("Connection: Upgrade\r\n"));
+    offset +=  strlen("Connection: Upgrade\r\n");
+    // sendFrame((uint8_t*)"Connection: Upgrade\r\n", strlen("Connection: Upgrade\r\n"));
+
+    memcpy(sendingBuffer + offset, "Host: ", strlen("Host: "));
+    offset +=  strlen("Host: ");
+    // sendFrame((uint8_t*)"Host: ", strlen("Host: "));
+
+    memcpy(sendingBuffer + offset, host, strlen(host));
+    offset +=  strlen(host);
+    // sendFrame((uint8_t*)host, strlen(host));
+
+    memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
+    offset +=  strlen(CRLF);
+    // sendFrame((uint8_t*)CRLF, strlen(CRLF));
+
+    memcpy(sendingBuffer + offset, "Sec-WebSocket-Key: ", strlen("Sec-WebSocket-Key: "));
+    offset +=  strlen("Sec-WebSocket-Key: ");
+    // sendFrame((uint8_t*)"Sec-WebSocket-Key: ", strlen("Sec-WebSocket-Key: "));
+
+    memcpy(sendingBuffer + offset, key.data(), strlen(key.data()));
+    offset +=  strlen(key.data());
+    // sendFrame((uint8_t*)key.data(), strlen(key.data()));
+
+    memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
+    offset +=  strlen(CRLF);
+    // sendFrame((uint8_t*)CRLF, strlen(CRLF));
+
+    memcpy(sendingBuffer + offset, "Sec-WebSocket-Version: 13\r\n", strlen("Sec-WebSocket-Version: 13\r\n"));
+    offset +=  strlen("Sec-WebSocket-Version: 13\r\n");
+    // sendFrame((uint8_t*)"Sec-WebSocket-Version: 13\r\n", strlen("Sec-WebSocket-Version: 13\r\n"));
+
+    memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
+    offset +=  strlen(CRLF);
+    // sendFrame((uint8_t*)CRLF, strlen(CRLF));
+
+    _connection->Send((const unsigned char*)sendingBuffer, offset);
 
 #ifdef DEBUGGING
     Serial.println(F("Analyzing response headers"));
@@ -182,9 +223,10 @@ bool WebsocketPath::isTerminated() const
     return false;
 }
 
-bool WebsocketPath::start(BaseRouteHandler::ConnectionMode connectionMode, RemoteConnection *address, uint8_t processingIndex, uint8_t processingLogicalId)
+bool WebsocketPath::start()
 {
-    return false;
+    return DoHandshake("/", (char *)_connection->GetRemoteConnection()->Address.data());
+    // return false;
 }
 
 void WebsocketPath::terminate()

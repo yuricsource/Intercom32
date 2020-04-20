@@ -142,6 +142,11 @@ uint32_t Hardware::GetMaxAllocHeap(void)
     return heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
 }
 
+uint32_t Hardware::GetRandomNumber()
+{
+	return esp_random();
+}
+
 uint32_t Hardware::GetPsramSize(void)
 {
     multi_heap_info_t info;

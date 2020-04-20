@@ -6,6 +6,8 @@ namespace Applications
 {
 
 using Configuration::ConfigurationAgent;
+using Protocol::WebsocketPath;
+// using ProtocolType::Websocket;
 // using Applications::GatewayService;
 
 GatewayService::GatewayService() : cpp_freertos::Thread("GWSVC", configGATEWAYSVC_STACK_DEPTH, 3),
@@ -14,7 +16,7 @@ GatewayService::GatewayService() : cpp_freertos::Thread("GWSVC", configGATEWAYSV
     _connectionPath.Protocol = ProtocolType::Websocket;
     _connectionPath.TransportLayer = TransportLayerType::Wifi;
     _connectionPath.Connection = new TcpConnection();
-    _connectionPath.RouteHandler = new Protocol::WebsocketPath();
+    _connectionPath.RouteHandler = new WebsocketPath();
 }
 
 void GatewayService::Run()
@@ -23,7 +25,7 @@ void GatewayService::Run()
 
     RemoteConnection *connection = &ConfigurationAgent::Instance()->GetBoardConfiguration()->GetConfiguration()->ServerConfig.Connection;
     _connectionPath.RouteHandler->SetConnection(_connectionPath.Connection);
-    
+
     for (;;)
     {
         switch (_connectionState)
@@ -38,17 +40,22 @@ void GatewayService::Run()
             break;
 
         case ConnectionState::TryToConnect:
-            if (BaseConnection::ConnectStatus::SuccessfullyConnected == _connectionPath.Connection->Connect(*connection))
+            Logger::LogInfo(Logger::LogSource::Gateway, "Connecting to %s:%d",connection->Address.data(), connection->Port);
+            if (BaseConnection::ConnectStatus::SuccessfullyConnected == _connectionPath.Connection->Connect(*connection)
+                && _connectionPath.RouteHandler->Start())
             {
                 changeState(ConnectionState::EstablishConnection);
             }
             else
             {
+                Logger::LogError(Logger::LogSource::Gateway, "Failed to Connect.");
                 changeState(ConnectionState::RestartConnection);
             }
             break;
 
         case ConnectionState::EstablishConnection:
+            // _connectionPath.RouteHandler->Process
+            Logger::LogInfo(Logger::LogSource::Gateway, "Connection Established.");
             changeState(ConnectionState::Done);
             break;
 

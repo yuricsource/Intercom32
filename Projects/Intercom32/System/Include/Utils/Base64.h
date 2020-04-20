@@ -2,7 +2,8 @@
 
 #include <cstdint>
 
-namespace Utilities {
+namespace Utilities 
+{
 
 class Base64
 {
