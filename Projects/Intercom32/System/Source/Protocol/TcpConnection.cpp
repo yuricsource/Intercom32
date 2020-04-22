@@ -191,12 +191,12 @@ void TcpConnection::clearPcbHandler(TcpConnection *tcpConnection, tcp_pcb *pcb)
     uint16_t localPort = pcb->local_port;
 
     tcpConnection->_pcb = nullptr;
-    tcp_arg(pcb, NULL);
-    tcp_sent(pcb, NULL);
-    tcp_recv(pcb, NULL);
-    tcp_err(pcb, NULL);
-    tcp_poll(pcb, NULL, 0);
-    tcp_close(pcb);
+    tcp_arg(tcpConnection->_pcb, NULL);
+    tcp_sent(tcpConnection->_pcb, NULL);
+    tcp_recv(tcpConnection->_pcb, NULL);
+    tcp_err(tcpConnection->_pcb, NULL);
+    tcp_poll(tcpConnection->_pcb, NULL, 0);
+    tcp_close(tcpConnection->_pcb);
 
     Logger::LogInfo(Logger::LogSource::Wifi, "Deleting pcb, port %i.", localPort);
     // _isConnected = false;

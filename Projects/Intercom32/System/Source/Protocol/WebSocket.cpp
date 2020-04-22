@@ -71,8 +71,8 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
     int bite = 0;
     bool foundupgrade = false;
     unsigned long intkey[2] = {};
-    array<char, 17> keyStart = {};
-    array<char, 25> b64Key = {};
+    array<char, 25> keyStart = {};
+    array<char, 16> b64Key = {};
     //String key = "------------------------";	              
 	array<char, 25> key = {"dGhlIHNhbXBsZSBub25jZQ=="};
 
@@ -80,7 +80,7 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
         keyStart.data()[i] = (char)Hal::Hardware::Instance()->GetRandomNumber();
     }
 
-    Base64::Encode((uint8_t*)b64Key.data(), b64Key.size(), (uint8_t*)keyStart.data(), keyStart.size());
+    Base64::Encode((uint8_t*)b64Key.data(), b64Key.size(), (uint8_t*)keyStart.data(), keyStart.size() -1);
     // base64_encode(b64Key, keyStart, 16);
 
     for (int i=0; i<24; ++i)
