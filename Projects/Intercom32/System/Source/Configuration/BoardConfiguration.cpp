@@ -24,7 +24,7 @@ void BoardConfiguration::DefaultConfiguration()
     memcpy(_configuration.WifiConfig.Password.data(), "Australia2us", strlen("Australia2us"));
     // memcpy(_configuration.ServerConfig.connection.Address.data(), "www.google.com", sizeof("www.google.com"));
     memcpy(_configuration.ServerConfig.Connection.Address.data(), "192.168.1.109", strlen("192.168.1.109"));
-    _configuration.ServerConfig.Connection.Port = 8080;
+    _configuration.ServerConfig.Connection.Port = 4567;
 
 #else
     /*HotSpot Configuration*/

@@ -28,16 +28,17 @@ extern "C" void app_main(void)
 	Hardware * hardware = Hardware::Instance();
 	ConfigurationAgent::Instance();
 	ApplicationAgent::Instance();
-	ConfigurationAgent::Instance()->UseDefaultConfiguration();
 	ApplicationAgent::Instance()->Initialize();
 	ApplicationAgent::Instance()->GetWifi().Start();
-	ApplicationAgent::Instance()->GetHttpServer().Start();
-	// ApplicationAgent::Instance()->GetGatewayService().Start();
+	// ApplicationAgent::Instance()->GetHttpServer().Start();
+	ApplicationAgent::Instance()->GetGatewayService().Start();
 	ApplicationAgent::Instance()->GetFirmwareUpdateService().Start();
 	ApplicationAgent::Instance()->GetAudioPlayerService().Start();
+	ConfigurationAgent::Instance()->UseDefaultConfiguration();
 
 	for (;;)
 	{
-		vTaskDelay(1000);
+		vTaskDelay(100);
+		heap_caps_check_integrity(MALLOC_CAP_8BIT, true);
 	}
 }

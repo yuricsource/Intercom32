@@ -11,12 +11,13 @@ using Hal::TimeLimit;
 using Hal::Hardware;
 using Utilities::Base64;
 
+#define DEBUGGING
+
 // CRLF characters to terminate lines/handshakes in headers.
 #define CRLF "\r\n"
 
 WebsocketPath::WebsocketPath()
 {
-
 }
 
 WebsocketPath::~WebsocketPath()
@@ -31,18 +32,18 @@ bool WebsocketPath::DoHandshake(char * path, char * host)
 
     // Check request and look for websocket handshake
 #ifdef DEBUGGING
-        Serial.println(F("Client connected"));
+        printf("Client connected\n");
 #endif
     if (analyzeRequest(path, host)) 
     {
 #ifdef DEBUGGING
-            Serial.println(F("Websocket established"));
+        printf("Websocket established\n");
 #endif
-            return true;
+        return true;
     } else {
         // Might just need to break until out of socket_client loop.
 #ifdef DEBUGGING
-        Serial.println(F("Invalid handshake"));
+        printf("Invalid handshake\n");
 #endif
         disconnectStream();
         return false;
@@ -54,7 +55,7 @@ bool WebsocketPath::DoHandshake(char * path, char * host)
 void WebsocketPath::disconnectStream()
 {
 #ifdef DEBUGGING
-    Serial.println(F("Terminating socket"));
+    printf("Terminating socket\n");
 #endif
     // Should send 0x8700 to server to tell it I'm quitting here.
     array <uint8_t, 2> message = {0x00, 0x87}; // doble check the order
@@ -71,8 +72,8 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
     int bite = 0;
     bool foundupgrade = false;
     unsigned long intkey[2] = {};
-    array<char, 25> keyStart = {};
-    array<char, 16> b64Key = {};
+    array<char, 16> keyStart = {};
+    array<char, 24> b64Key = {};
     //String key = "------------------------";	              
 	array<char, 25> key = {"dGhlIHNhbXBsZSBub25jZQ=="};
 
@@ -80,14 +81,14 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
         keyStart.data()[i] = (char)Hal::Hardware::Instance()->GetRandomNumber();
     }
 
-    Base64::Encode((uint8_t*)b64Key.data(), b64Key.size(), (uint8_t*)keyStart.data(), keyStart.size() -1);
+    Base64::Encode((uint8_t*)keyStart.data(), keyStart.size(), (uint8_t*)b64Key.data(), b64Key.size());
     // base64_encode(b64Key, keyStart, 16);
 
     for (int i=0; i<24; ++i)
         key.data()[i] = b64Key.data()[i];
 
 #ifdef DEBUGGING
-    Serial.println(F("Sending websocket upgrade headers"));
+    printf("Sending websocket upgrade headers\n");
 #endif
     memcpy(sendingBuffer + offset,"GET ", strlen("GET "));
     offset += strlen("GET ");
@@ -113,9 +114,15 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
     offset +=  strlen("Host: ");
     // sendFrame((uint8_t*)"Host: ", strlen("Host: "));
 
-    memcpy(sendingBuffer + offset, host, strlen(host));
-    offset +=  strlen(host);
+    // memcpy(sendingBuffer + offset, host, strlen(host));
+    // offset +=  strlen(host);
+    memcpy(sendingBuffer + offset, "127.0.0.1", strlen("127.0.0.1"));
+    offset +=  strlen("127.0.0.1");
     // sendFrame((uint8_t*)host, strlen(host));
+
+    memcpy(sendingBuffer + offset, ":4567", strlen(":4567"));
+    offset +=  strlen(":4567");
+    // sendFrame((uint8_t*)"Host: ", strlen("Host: "));
 
     memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
     offset +=  strlen(CRLF);
@@ -140,40 +147,49 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
     memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
     offset +=  strlen(CRLF);
     // sendFrame((uint8_t*)CRLF, strlen(CRLF));
-
+#ifdef DEBUGGING
+    printf("Header sent:\n");
+    printf("%s", sendingBuffer);
+#endif    
     _connection->Send((const unsigned char*)sendingBuffer, offset);
 
 #ifdef DEBUGGING
-    Serial.println(F("Analyzing response headers"));
+    printf("Analyzing response headers\n");
 #endif    
 
-    // TODO: More robust string extraction
-    TimeLimit timeout;
+    TimeLimit timeout = {};
     bool requestedReceived = false;
     char * messsage = nullptr;
     char * serverKey = nullptr;
     
-    while(timeout.IsTimeUp(500))
+    while(timeout.IsTimeUp(10000) == false)
     {
         vTaskDelay(20);
         
         if (_hayStackWorkingLength > 0)
         {
-            messsage = strstr(&_hayStack[_hayStackWorkingLength], "Sec-WebSocket-Accept: ");
+            printf("Message Received, analysing the respond.(%d)\n", _hayStackWorkingLength);
+            messsage = strstr(_hayStack, "Sec-WebSocket-Accept: ");
             if (messsage != nullptr)
             {
                 serverKey = messsage + 22;
                 requestedReceived = true;
                 break;
             }
+            _hayStackWorkingLength = 0;
         }
     }
 
     if (requestedReceived == false)
+    {
+#ifdef DEBUGGING
+        printf("Socket Timeout.\n");
+#endif
         return false;
+    }
         
 #ifdef DEBUGGING
-            Serial.print("Got Header: " + serverKey);
+    printf("Got Header: %s\n", serverKey);
 #endif
 
     uint8_t *hash = nullptr;
@@ -185,11 +201,12 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
 	sha1ctx.AddBytes((unsigned char*) "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", strlen("258EAFA5-E914-47DA-95CA-C5AB0DC85B11"));
 	sha1ctx.GetDigest((unsigned char*) result);
 
-    for (int i=0; i<20; ++i) {
-        result[i] = (char)hash[i];
-    }
+    // for (int i=0; i<20; ++i) {
+        // result[i] = (char)hash[i];
+    // }
+
     result[20] = '\0';
-    Base64::Encode((uint8_t*)b64Result, 30, (uint8_t*)result, 20);
+    Base64::Encode((uint8_t*)result, 20, (uint8_t*)b64Result, 30);
     
     return strstr(serverKey, b64Result) != nullptr;
 }
@@ -200,6 +217,7 @@ void WebsocketPath::receivedData(const uint8_t *data, uint16_t length)
     {
         memcpy(&_hayStack[_hayStackWorkingLength], data, length);
         _hayStackWorkingLength += length;
+        printf("_hayStackWorkingLength: %d, _hayStack: %s\n", _hayStackWorkingLength, _hayStack);
     }
     else
         DebugAssertFail("No room for new incoming.");
@@ -225,6 +243,7 @@ bool WebsocketPath::isTerminated() const
 
 bool WebsocketPath::start()
 {
+    _connection->SetDataReceived(fastdelegate::MakeDelegate(this, &WebsocketPath::receivedData));
     return DoHandshake("/", (char *)_connection->GetRemoteConnection()->Address.data());
     // return false;
 }

@@ -30,7 +30,7 @@ enum class ConnectionChangeReason
 	Closed
 };
 
-using DelegateDataReceived = FastDelegate2<const char *, uint16_t>;
+using DelegateDataReceived = FastDelegate2<const uint8_t *, uint16_t>;
 using DelegateConnectionStateChanged = FastDelegate2<ConnectionState, ConnectionChangeReason>;
 
 struct RemoteConnection

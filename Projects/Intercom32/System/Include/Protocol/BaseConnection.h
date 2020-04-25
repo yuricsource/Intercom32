@@ -7,6 +7,7 @@
 #include "CommonTypes.h"
 #include "ConnectionTypes.h"
 #include "ConfigurationCommon.h"
+#include "DebugAssert.h"
 
 namespace Protocol
 {
@@ -102,10 +103,13 @@ public:
 			_connectionContext.OnStateChanged(_connectionContext.State, reason);
 	}
 
-	void DataReceived(const char *data, uint16_t len)
+	void DataReceived(const uint8_t *data, uint16_t len)
 	{
 		if (!_connectionContext.OnDataReceived || len == 0)
+		{
+			DebugAssertFail("OnDataReceive Cannot be null pointer.");
 			return;
+		}
 		_connectionContext.OnDataReceived(data, len);
 	}
 

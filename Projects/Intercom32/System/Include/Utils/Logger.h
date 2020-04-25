@@ -20,6 +20,7 @@ public:
 		Camera,
 		Ble,
 		Wifi,
+		Tcp,
 		HttpServer,
 		Gateway,
 		FirmwareUpdate,

@@ -4,24 +4,24 @@
 namespace Utilities
 {
 
-const char *Base64::_pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const char *Base64::_bytes64Pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-void Base64::Encode(uint8_t *input, uint16_t inputLength, uint8_t *base, uint16_t baseLength)
+void Base64::Encode(uint8_t* inputData, uint16_t inputLen, uint8_t* base64Data, uint16_t base64DataLen)
 {
-	uint16_t length = Base64::GetBufferLength(inputLength + 1);
-	assert(baseLength >= length);
-
-	base[length] = '\0';
+	uint16_t blen = Base64::GetBufferLength(inputLen + 1);
+	assert(base64DataLen >= blen);
+	
+	base64Data[blen] = '\0';
 	int j = 0, i;
-	for (i = 0; i < inputLength; i += 3)
+	for (i = 0; i < inputLen; i += 3)
 	{
-		int a = input[i];
-		int b = (i + 1 < inputLength) ? input[i + 1] : 0;
-		int c = (i + 2 < inputLength) ? input[i + 2] : 0;
-		base[j++] = _pattern[a >> 2];
-		base[j++] = _pattern[((a & 3) << 4) | (b >> 4)];
-		base[j++] = (i + 1 < inputLength) ? _pattern[((b & 15) << 2) | (c >> 6)] : 61;
-		base[j++] = (i + 2 < inputLength) ? _pattern[(c & 63)] : 61;
+		int a = inputData[i];
+		int b = (i + 1 < inputLen) ? inputData[i + 1] : 0;
+		int c = (i + 2 < inputLen) ? inputData[i + 2] : 0;
+		base64Data[j++] = _bytes64Pattern[a >> 2];
+		base64Data[j++] = _bytes64Pattern[((a & 3) << 4) | (b >> 4)];
+		base64Data[j++] = (i + 1 < inputLen) ? _bytes64Pattern[((b & 15) << 2) | (c >> 6)] : 61;
+		base64Data[j++] = (i + 2 < inputLen) ? _bytes64Pattern[(c & 63)] : 61;
 	}
 }
 

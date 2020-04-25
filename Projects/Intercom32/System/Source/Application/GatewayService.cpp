@@ -25,6 +25,7 @@ void GatewayService::Run()
 
     RemoteConnection *connection = &ConfigurationAgent::Instance()->GetBoardConfiguration()->GetConfiguration()->ServerConfig.Connection;
     _connectionPath.RouteHandler->SetConnection(_connectionPath.Connection);
+    _connectionPath.RouteHandler->Start();
 
     for (;;)
     {
@@ -65,7 +66,7 @@ void GatewayService::Run()
         default:
             break;
         }
-        vTaskDelay(100);
+        Delay(1000);
     }
 }
 

@@ -12,7 +12,7 @@ public:
 	static uint16_t GetBufferLength(uint16_t length);
 	
 private:
-	static const char *_pattern;
+	static const char *_bytes64Pattern;
 };
 
 } // namespace Utilities

@@ -6,6 +6,8 @@
 #include "IPParser.h"
 #include "DebugAssert.h"
 
+#define DEBUG_TCP
+
 namespace Protocol
 {
 
@@ -47,6 +49,7 @@ BaseConnection::ConnectStatus TcpConnection::DoConnect(const RemoteConnection &r
     tcp_connect(_pcb, &ipAddress, remoteConnection.Port, connectedHandler);
 
     ConnectionChanged(ConnectionChangeReason::None);
+    SetConnectionState(ConnectionState::Connected);
     _isConnected = true;
     return BaseConnection::ConnectStatus::SuccessfullyConnected;
 }
@@ -66,7 +69,7 @@ err_t TcpConnection::connectedHandler(void *arg, struct tcp_pcb *pcb, err_t err)
 
         return ERR_OK;
     }
-
+    printf("connectedHandler");
     tcpConnection->SetConnectionState(ConnectionState::Connected);
     tcpConnection->ConnectionChanged(ConnectionChangeReason::None);
 
@@ -79,7 +82,7 @@ err_t TcpConnection::sentHandler(void *arg, struct tcp_pcb *pcb, u16_t len)
         return ERR_ABRT;
 
     TcpConnection *tcpConnection = reinterpret_cast<TcpConnection *>(arg);
-
+    printf("sentHandler\n");
     tcpConnection->ResetTimeout();
     return (ERR_OK);
 }
@@ -116,7 +119,7 @@ err_t TcpConnection::pollHandler(void *arg, struct tcp_pcb *pcb)
     TcpConnection *tcpConnection = reinterpret_cast<TcpConnection *>(arg);
     if (tcpConnection == nullptr)
         return ERR_ARG;
-
+    printf("pollHandler\n");
     tcpConnection->IncrementTimeout();
     if (tcpConnection->GetTimeout() > 20)
     {
@@ -151,7 +154,7 @@ err_t TcpConnection::receiveHandler(void *arg, struct tcp_pcb *pcb, struct pbuf 
             u16_t totalBytes = p->tot_len;
             while (temp_p != NULL)
             {
-                tcpConnection->DataReceived((const char *)temp_p->payload, temp_p->len);
+                tcpConnection->DataReceived((const uint8_t *)temp_p->payload, temp_p->len);
                 temp_p = temp_p->next;
             }
             pbuf_free(p);
@@ -199,13 +202,44 @@ void TcpConnection::clearPcbHandler(TcpConnection *tcpConnection, tcp_pcb *pcb)
     tcp_close(tcpConnection->_pcb);
 
     Logger::LogInfo(Logger::LogSource::Wifi, "Deleting pcb, port %i.", localPort);
-    // _isConnected = false;
+    // _connectionContext.State = ConnectionState::Disconnected;
+    
+    tcpConnection->SetConnectionState(ConnectionState::Disconnected);
 }
 
 bool TcpConnection::DoSend(const unsigned char *data, uint16_t length)
 {
-    // To-Do
-    return true;
+    if (_pcb == nullptr || data == nullptr || length == 0) 
+		return false;
+	
+	if (_connectionContext.State != ConnectionState::Connected)
+		return false;
+	
+	// Send data
+	{
+		err_t error = tcp_write(_pcb, data, length, TCP_WRITE_FLAG_COPY);
+		if (error == ERR_OK)
+		{
+            printf("Socket sent.\n");
+			error = tcp_output(_pcb);
+            // tcp_sndbuf(_pcb);
+			if (error == ERR_OK)
+				return true;
+			else
+			{
+#ifdef DEBUG_TCP
+				Logger::LogError(Logger::LogSource::Tcp, "DoSend|tcp_output|Error#%i|\n", error);
+#endif // DEBUG_TCP
+			}
+		}
+		else
+		{
+#ifdef DEBUG_TCP
+			Logger::LogError(Logger::LogSource::Tcp, "DoSend|tcp_write|Error#%i|\n", error);
+#endif // DEBUG_TCP	
+		}
+	}
+	return false;
 }
 
 void TcpConnection::DoClose()
