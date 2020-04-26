@@ -21,9 +21,7 @@ COMPONENT_SRCDIRS           +=  ../../Esp32/Source/Hal                          
                                 ../System/Libraries/freertos-addons/Source                 \
                                 ../System/Libraries/JsonParser                             \
                                 ../System/Libraries/Arduino/Adafruit-GFX                   \
-                                ../System/Libraries/Arduino/ArduinoPort                    \
-                                ../System/Libraries/Arduino/ArduinoPort/esp32              \
-                                ../System/Libraries/Arduino/Websocket 
+                                ../System/Libraries/Arduino/ArduinoPort
 
 COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                                    \
                                 ../../Esp32/Include/Hal                                    \
@@ -39,6 +37,4 @@ COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                         
                                 ../System/Libraries/freertos-addons/Source/include         \
                                 ../System/Libraries/JsonParser                             \
                                 ../System/Libraries/Arduino/Adafruit-GFX                   \
-                                ../System/Libraries/Arduino/ArduinoPort                    \
-                                ../System/Libraries/Arduino/ArduinoPort/esp32              \
-                                ../System/Libraries/Arduino/Websocket
+                                ../System/Libraries/Arduino/ArduinoPort
