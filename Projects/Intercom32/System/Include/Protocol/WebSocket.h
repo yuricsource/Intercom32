@@ -15,15 +15,17 @@ public:
     bool DoHandshake(char * path, char * host);
 
 private:
+    bool _websocketConnected = false;
+    TimeLimit pingTimeout = {};
     bool analyzeRequest(char * path, char * host);
 
     void disconnectStream();
 
-    void receivedData(const uint8_t *data, uint16_t length) override;
+    void ReceivedData(const uint8_t *data, uint16_t length) override;
 
-    void connectionStateChanged(ConnectionState state, ConnectionChangeReason reason) override;
+    void ConnectionStateChanged(ConnectionState state, ConnectionChangeReason reason) override;
 
-    bool sendFrame(const uint8_t *data, uint16_t length) override;
+    bool SendFrame(const uint8_t *data, uint16_t length) override;
 
 	void setConnection() override;
 

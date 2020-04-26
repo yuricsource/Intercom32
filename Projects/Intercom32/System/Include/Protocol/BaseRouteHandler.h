@@ -71,11 +71,11 @@ protected:
 	ConnectionExecutionResult _executionResult;
 	RemoteConnection _remoteConnection;
 
-	virtual void receivedData(const uint8_t *data, uint16_t length) = 0;
+	virtual void ReceivedData(const uint8_t *data, uint16_t length) = 0;
 
-	virtual void connectionStateChanged(ConnectionState state, ConnectionChangeReason reason) = 0;
+	virtual void ConnectionStateChanged(ConnectionState state, ConnectionChangeReason reason) = 0;
 
-	virtual bool sendFrame(const uint8_t *data, uint16_t length) = 0;
+	virtual bool SendFrame(const uint8_t *data, uint16_t length) = 0;
 
 	const RemoteConnection &GetRemoteConnection()
 	{

@@ -40,7 +40,8 @@ bool WebsocketPath::DoHandshake(char * path, char * host)
         printf("Websocket established\n");
 #endif
         return true;
-    } else {
+    } else
+    {
         // Might just need to break until out of socket_client loop.
 #ifdef DEBUGGING
         printf("Invalid handshake\n");
@@ -57,10 +58,9 @@ void WebsocketPath::disconnectStream()
 #ifdef DEBUGGING
     printf("Terminating socket\n");
 #endif
-    // Should send 0x8700 to server to tell it I'm quitting here.
     array <uint8_t, 2> message = {0x00, 0x87}; // doble check the order
 
-    sendFrame(message.data(), message.size());
+    SendFrame(message.data(), message.size());
     terminate();
 }
 
@@ -74,7 +74,6 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
     unsigned long intkey[2] = {};
     array<char, 16> keyStart = {};
     array<char, 24> b64Key = {};
-    //String key = "------------------------";	              
 	array<char, 25> key = {"dGhlIHNhbXBsZSBub25jZQ=="};
 
     for (int i=0; i<16; ++i) {
@@ -82,7 +81,6 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
     }
 
     Base64::Encode((uint8_t*)keyStart.data(), keyStart.size(), (uint8_t*)b64Key.data(), b64Key.size());
-    // base64_encode(b64Key, keyStart, 16);
 
     for (int i=0; i<24; ++i)
         key.data()[i] = b64Key.data()[i];
@@ -92,61 +90,34 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
 #endif
     memcpy(sendingBuffer + offset,"GET ", strlen("GET "));
     offset += strlen("GET ");
-    // sendFrame((uint8_t*)"GET ", strlen("GET "));
-
     memcpy(sendingBuffer + offset,path, strlen(path));
     offset +=  strlen(path);
-    // sendFrame((uint8_t*)path, strlen(path));
-
     memcpy(sendingBuffer + offset, " HTTP/1.1\r\n", strlen(" HTTP/1.1\r\n"));
     offset +=  strlen(" HTTP/1.1\r\n");
-    // sendFrame((uint8_t*)" HTTP/1.1\r\n", strlen(" HTTP/1.1\r\n"));
-
     memcpy(sendingBuffer + offset, "Upgrade: websocket\r\n", strlen("Upgrade: websocket\r\n"));
     offset +=  strlen("Upgrade: websocket\r\n");
-    // sendFrame((uint8_t*)"Upgrade: websocket\r\n", strlen("Upgrade: websocket\r\n"));
-
     memcpy(sendingBuffer + offset, "Connection: Upgrade\r\n", strlen("Connection: Upgrade\r\n"));
     offset +=  strlen("Connection: Upgrade\r\n");
-    // sendFrame((uint8_t*)"Connection: Upgrade\r\n", strlen("Connection: Upgrade\r\n"));
-
     memcpy(sendingBuffer + offset, "Host: ", strlen("Host: "));
     offset +=  strlen("Host: ");
-    // sendFrame((uint8_t*)"Host: ", strlen("Host: "));
-
     // memcpy(sendingBuffer + offset, host, strlen(host));
     // offset +=  strlen(host);
     memcpy(sendingBuffer + offset, "127.0.0.1", strlen("127.0.0.1"));
     offset +=  strlen("127.0.0.1");
-    // sendFrame((uint8_t*)host, strlen(host));
-
     memcpy(sendingBuffer + offset, ":4567", strlen(":4567"));
     offset +=  strlen(":4567");
-    // sendFrame((uint8_t*)"Host: ", strlen("Host: "));
-
     memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
     offset +=  strlen(CRLF);
-    // sendFrame((uint8_t*)CRLF, strlen(CRLF));
-
     memcpy(sendingBuffer + offset, "Sec-WebSocket-Key: ", strlen("Sec-WebSocket-Key: "));
     offset +=  strlen("Sec-WebSocket-Key: ");
-    // sendFrame((uint8_t*)"Sec-WebSocket-Key: ", strlen("Sec-WebSocket-Key: "));
-
     memcpy(sendingBuffer + offset, key.data(), strlen(key.data()));
     offset +=  strlen(key.data());
-    // sendFrame((uint8_t*)key.data(), strlen(key.data()));
-
     memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
     offset +=  strlen(CRLF);
-    // sendFrame((uint8_t*)CRLF, strlen(CRLF));
-
     memcpy(sendingBuffer + offset, "Sec-WebSocket-Version: 13\r\n", strlen("Sec-WebSocket-Version: 13\r\n"));
     offset +=  strlen("Sec-WebSocket-Version: 13\r\n");
-    // sendFrame((uint8_t*)"Sec-WebSocket-Version: 13\r\n", strlen("Sec-WebSocket-Version: 13\r\n"));
-
     memcpy(sendingBuffer + offset, CRLF, strlen(CRLF));
     offset +=  strlen(CRLF);
-    // sendFrame((uint8_t*)CRLF, strlen(CRLF));
 #ifdef DEBUGGING
     printf("Header sent:\n");
     printf("%s", sendingBuffer);
@@ -201,17 +172,13 @@ bool WebsocketPath::analyzeRequest(char * path, char * host)
 	sha1ctx.AddBytes((unsigned char*) "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", strlen("258EAFA5-E914-47DA-95CA-C5AB0DC85B11"));
 	sha1ctx.GetDigest((unsigned char*) result);
 
-    // for (int i=0; i<20; ++i) {
-        // result[i] = (char)hash[i];
-    // }
-
     result[20] = '\0';
     Base64::Encode((uint8_t*)result, 20, (uint8_t*)b64Result, 30);
     
     return strstr(serverKey, b64Result) != nullptr;
 }
 
-void WebsocketPath::receivedData(const uint8_t *data, uint16_t length)
+void WebsocketPath::ReceivedData(const uint8_t *data, uint16_t length)
 {
     if (_hayStackWorkingLength + length < MaxHayStackLength)
     {
@@ -223,11 +190,11 @@ void WebsocketPath::receivedData(const uint8_t *data, uint16_t length)
         DebugAssertFail("No room for new incoming.");
 }
 
-void WebsocketPath::connectionStateChanged(ConnectionState state, ConnectionChangeReason reason)
+void WebsocketPath::ConnectionStateChanged(ConnectionState state, ConnectionChangeReason reason)
 {
 }
 
-bool WebsocketPath::sendFrame(const uint8_t *data, uint16_t length)
+bool WebsocketPath::SendFrame(const uint8_t *data, uint16_t length)
 {
     return false;
 }
@@ -243,9 +210,13 @@ bool WebsocketPath::isTerminated() const
 
 bool WebsocketPath::start()
 {
-    _connection->SetDataReceived(fastdelegate::MakeDelegate(this, &WebsocketPath::receivedData));
-    return DoHandshake("/", (char *)_connection->GetRemoteConnection()->Address.data());
-    // return false;
+    _connection->SetDataReceived(fastdelegate::MakeDelegate(this, &WebsocketPath::ReceivedData));
+    if (DoHandshake("/", (char *)_connection->GetRemoteConnection()->Address.data()))
+    {
+        _websocketConnected = true;
+        pingTimeout.Reset();
+    }
+    return _websocketConnected;
 }
 
 void WebsocketPath::terminate()
@@ -255,6 +226,10 @@ void WebsocketPath::terminate()
 
 void WebsocketPath::process()
 {
+    if (_websocketConnected && pingTimeout.IsTimeUp(10000))
+    {
+        
+    }
 }
 
 } // namespace Protocol
