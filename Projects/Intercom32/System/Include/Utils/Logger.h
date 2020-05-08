@@ -35,7 +35,29 @@ public:
 	};
 
 private:
+
+	enum class TerminalColour : uint8_t
+	{
+		Black	= 30,
+		Red		= 31,
+		Green	= 32,
+		Brown	= 33,
+		Blue	= 34,
+		Purple	= 35,
+		Cyan	= 36,
+		Default = 39
+	};
+
+	enum class BackgroundColour : uint8_t
+	{
+		Red		= 41,
+		Green	= 42,
+		Blue	= 44,
+		Default = 49
+	};
+
 	static MutexStandard *_logLock;
+	static void setColour(TerminalColour colour, BackgroundColour background = BackgroundColour::Default, bool bold = false);
 	static bool createPrefix(const char *prefix, const char prefixLen, LogSource source);
 
 public:

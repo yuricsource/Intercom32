@@ -45,6 +45,8 @@ void Logger::LogInfo(const char *format, ...)
 
 	LockGuard logGuard(*_logLock);
 
+	setColour(TerminalColour::Default, BackgroundColour::Default);
+
 	do
 	{
 		if (!createPrefix(severityInfo, severityInfoLen, LogSource::Unknown))
@@ -64,6 +66,7 @@ void Logger::LogInfo(LogSource source, const char *format, ...)
 		return;
 
 	LockGuard logGuard(*_logLock);
+	setColour(TerminalColour::Default, BackgroundColour::Default);
 
 	do
 	{
@@ -78,12 +81,20 @@ void Logger::LogInfo(LogSource source, const char *format, ...)
 	fwrite(newLine, 1, newLineLen, stdout);
 }
 
+void Logger::setColour(TerminalColour colour, BackgroundColour background, bool bold)
+{
+	char colourPrefix[10] = {};
+	sprintf(colourPrefix, "\033[%d;%d;%dm", bold, static_cast<uint8_t>(background), static_cast<uint8_t>(colour));
+	fwrite(colourPrefix, 1, strlen(colourPrefix), stdout);
+}
+
 void Logger::LogError(const char *format, ...)
 {
 	if (Hardware::Instance()->GetDebugPort().IsEnabled() == false)
 		return;
 
 	LockGuard logGuard(*_logLock);
+	setColour(TerminalColour::Red);
 
 	do
 	{
@@ -104,6 +115,8 @@ void Logger::LogError(LogSource source, const char *format, ...)
 		return;
 
 	LockGuard logGuard(*_logLock);
+	setColour(TerminalColour::Red);
+
 	do
 	{
 		if (!createPrefix(severityError, severityErrorLen, source))
