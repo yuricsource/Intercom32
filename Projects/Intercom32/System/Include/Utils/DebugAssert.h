@@ -20,7 +20,7 @@
 /**
  * @brief 							breaks in an assert
  */
-#define DebugAssertFail(failMessage)		Utilities::DebugAssert::AssertFail(failMessage, __FILE__, __LINE__);
+#define DebugAssertFail(...)		Utilities::DebugAssert::AssertFail(__FILE__, __LINE__, __VA_ARGS__);
 
 /**
  * @brief Test the result, if different prints the error and breaks in an assert
@@ -65,7 +65,7 @@ public:
 	void Assert();
 
 public:
-	static void AssertFail(const char *message, const char *file, int line);
+	static void AssertFail(const char *file, int line, const char *message, ...);
 	static void Assert(int rc, const char *file, int line, const char *function, const char *expression);
 	static void AssertWithoutBreaking(int rc, const char *file, int line, const char *function, const char *expression);
 	static const char *GetGeneralErrorName(int code);
