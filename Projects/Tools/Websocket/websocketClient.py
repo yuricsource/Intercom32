@@ -2,7 +2,7 @@ import websocket
  
 # Connect to WebSocket server
 ws = websocket.WebSocket()
-ws.connect("ws://192.168.0.114")
+ws.connect("ws://192.168.1.109")
 print("Connected to WebSocket server")
 
 str = ' '
