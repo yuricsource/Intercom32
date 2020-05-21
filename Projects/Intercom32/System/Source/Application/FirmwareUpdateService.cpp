@@ -9,6 +9,7 @@
 using Hal::BankConfiguration;
 using Hal::Flash;
 using Hal::Hardware;
+using Utilities::Logger;
 
 namespace Applications
 {

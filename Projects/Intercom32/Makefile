@@ -12,5 +12,5 @@ EXTRA_CFLAGS := -Wno-unused-local-typedefs
 include $(IDF_PATH)/make/project.mk
 
 
-SPIFFS_IMAGE_FLASH_IN_PROJECT := 1
-$(eval $(call spiffs_create_partition_image,storage,spiffs))
+#SPIFFS_IMAGE_FLASH_IN_PROJECT := 1
+#$(eval $(call spiffs_create_partition_image,storage,spiffs))

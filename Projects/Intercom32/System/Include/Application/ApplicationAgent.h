@@ -29,7 +29,7 @@ public:
     }
 
     WifiService& GetWifi() {return *_wifiService;}
-    HttpServer& GetHttpServer(){return *_httpServer;}
+    //HttpServer& GetHttpServer(){return *_httpServer;}
     GatewayService& GetGatewayService(){ return *_gatewayService;}
     FirmwareUpdateService& GetFirmwareUpdateService(){ return *_firmwareUpdateService;}
     AudioPlayerService& GetAudioPlayerService() {return *_audioPlayerService;}
@@ -37,7 +37,7 @@ public:
 private:
     static ApplicationAgent *_applications;
     WifiService *_wifiService;
-    HttpServer *_httpServer;
+    //HttpServer *_httpServer;
     GatewayService *_gatewayService;
     FirmwareUpdateService * _firmwareUpdateService;
     AudioPlayerService *_audioPlayerService;

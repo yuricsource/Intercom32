@@ -1,7 +1,7 @@
 
 #include <TimerInterruptHandler.h>
 #include "driver/timer.h"
-#include "hal/timer_types.h"
+// #include "hal/timer_types.h"
 
 #include <stdio.h>
 #include "esp_types.h"
@@ -63,34 +63,34 @@ bool TimerInterruptHandler::SetFrequency(TimerInterruptHandler::Callback *handle
 
 void IRAM_ATTR TimerInterruptHandler::CallbackHandler(void *arg)
 {
-	TimerInterruptHandler::Callback *handler = (TimerInterruptHandler::Callback *)arg;
+	// TimerInterruptHandler::Callback *handler = (TimerInterruptHandler::Callback *)arg;
 
-	if (handler->Frequency == 0)
-		return;
+	// if (handler->Frequency == 0)
+	// 	return;
 
-	timer_idx_t timer;
+	// timer_idx_t timer;
 
-	if (handler->Preemption == Preemption::TIMER0)
-		timer = TIMER_0;
-	else if (handler->Preemption == Preemption::TIMER1)
-		timer = TIMER_1;
-	else
-		return;
+	// if (handler->Preemption == Preemption::TIMER0)
+	// 	timer = TIMER_0;
+	// else if (handler->Preemption == Preemption::TIMER1)
+	// 	timer = TIMER_1;
+	// else
+	// 	return;
 
-	if (handler->AutoReload == false)
-	{
-		uint64_t timer_counter_value = timer_group_get_counter_value_in_isr(TIMER_GROUP_0, timer);
-		timer_group_intr_clr_in_isr(TIMER_GROUP_0, timer);
-		timer_counter_value += (uint64_t)(CountsPerSecond / handler->Frequency);
-		timer_group_set_alarm_value_in_isr(TIMER_GROUP_0, timer, timer_counter_value);
-	}
-	else
-		timer_group_intr_clr_in_isr(TIMER_GROUP_0, timer);
+	// if (handler->AutoReload == false)
+	// {
+	// 	uint64_t timer_counter_value = timer_group_get_counter_value_in_isr(TIMER_GROUP_0, timer);
+	// 	timer_group_intr_clr_in_isr(TIMER_GROUP_0, timer);
+	// 	timer_counter_value += (uint64_t)(CountsPerSecond / handler->Frequency);
+	// 	timer_group_set_alarm_value_in_isr(TIMER_GROUP_0, timer, timer_counter_value);
+	// }
+	// else
+	// 	timer_group_intr_clr_in_isr(TIMER_GROUP_0, timer);
 
-	timer_group_enable_alarm_in_isr(TIMER_GROUP_0, timer);
+	// timer_group_enable_alarm_in_isr(TIMER_GROUP_0, timer);
 
-	if (handler->InterruptHandlerProcessing != nullptr)
-		handler->InterruptHandlerProcessing->InterruptProcessor(handler->Preemption);
+	// if (handler->InterruptHandlerProcessing != nullptr)
+	// 	handler->InterruptHandlerProcessing->InterruptProcessor(handler->Preemption);
 }
 
 void TimerInterruptHandler::SetCallback(TimerInterruptHandler::Callback *handler)

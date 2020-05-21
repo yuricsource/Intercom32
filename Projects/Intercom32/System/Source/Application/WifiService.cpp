@@ -37,7 +37,7 @@ void WifiService::changeState(WifiState wifiState)
 void WifiService::Run()
 {
     tcpip_adapter_init();
-    DebugAssert(esp_netif_init(), ESP_OK);
+    //DebugAssert(esp_netif_init(), ESP_OK);
 
     WifiDriver &_wifiDriver = Hardware::Instance()->GetWifi();
 
@@ -118,15 +118,15 @@ void WifiService::Run()
         break;
         case WifiState::DhcpWaiting:
         {
-            esp_netif_ip_info_t ip_info = {};
-            esp_netif_t *gnetif = _wifiDriver.GetWifiClientNetif();
+            // esp_netif_ip_info_t ip_info = {};
+            // // esp_netif_t *gnetif = _wifiDriver.GetWifiClientNetif();
             
-            assert(gnetif);
-            DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
+            // // assert(gnetif);
+            // // DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
     
-            Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
-            Hardware::Instance()->GetCamera().Init();
-            changeState(WifiState::DhcpDone);
+            // Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
+            // Hardware::Instance()->GetCamera().Init();
+            // changeState(WifiState::DhcpDone);
             
         }
         break;
@@ -151,15 +151,15 @@ void WifiService::Run()
         case WifiState::StartDhcpServer:
         {
 
-            esp_netif_ip_info_t ip_info = {};
-            esp_netif_t *gnetif = _wifiDriver.GetWifiHostNetif();
+            // esp_netif_ip_info_t ip_info = {};
+            // // esp_netif_t *gnetif = _wifiDriver.GetWifiHostNetif();
             
-            assert(gnetif);
-            DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
+            // // assert(gnetif);
+            // // DebugAssert(esp_netif_get_ip_info(gnetif, &ip_info), ESP_OK);
     
-            Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
-            Hardware::Instance()->GetCamera().Init();
-            changeState(WifiState::DhcpDone);
+            // Logger::LogInfo(Logger::LogSource::Wifi, "Ip: %s",ip4addr_ntoa((const ip4_addr_t*)&ip_info.ip));
+            // Hardware::Instance()->GetCamera().Init();
+            // changeState(WifiState::DhcpDone);
         }
         break;
 

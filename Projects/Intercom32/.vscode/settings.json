@@ -2,7 +2,7 @@
   "terminal.integrated.shell.windows": "cmd.exe",
   "terminal.integrated.shellArgs.windows": [
     "/k",
-    "c:\\esp\\esp-idf\\export.bat"
+    "cd /d C:\\esp\\esp-idf & C:\\esp\\esp-idf\\espressif\\idf_cmd_init.bat C:%HOMEPATH%\\AppData\\Local\\Programs\\Python\\Python37\\ C:\\Program Files\\Git\\cmd\\ & cd C:\\YuriCode\\Intercom32\\Projects\\Intercom32"
   ],
   "terminal.integrated.shell.linux": "/bin/bash",
   "terminal.integrated.shellArgs.linux": [

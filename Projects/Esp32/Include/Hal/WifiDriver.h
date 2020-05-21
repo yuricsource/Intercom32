@@ -25,14 +25,14 @@ public:
 	bool SetMode(WifiModeConfiguration wifiConfiguration);
 	bool SetAuthentication(WifiAuthenticationMode authentication);
 	bool SetChannel(uint8_t channel);
-	esp_netif_t *GetWifiClientNetif() {return _clientNetif;}
-	esp_netif_t *GetWifiHostNetif() {return _hotstopNetif;}
+//	esp_netif_t *GetWifiClientNetif() {return _clientNetif;}
+//	esp_netif_t *GetWifiHostNetif() {return _hotstopNetif;}
 
 private:
 	bool _isEnabled = false;
 	bool _isConnected = false;
-	esp_netif_t *_hotstopNetif = nullptr;
-	esp_netif_t *_clientNetif = nullptr;
+//	esp_netif_t *_hotstopNetif = nullptr;
+//	esp_netif_t *_clientNetif = nullptr;
 	WifiAuthenticationMode _authentication = WifiAuthenticationMode::Open;
 	WifiModeConfiguration _wifiConfiguration = WifiModeConfiguration::HotSpot;
 	uint8_t _channel = 8;

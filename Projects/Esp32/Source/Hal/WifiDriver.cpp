@@ -9,6 +9,7 @@
 #include "esp_log.h"
 #include "freertos/event_groups.h"
 #include "Dwt.h"
+// #include "DebugAssert.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -73,14 +74,14 @@ WifiDriver::WifiDriver()
 	if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
 	{
 		nvs_flash_erase();
-		ret = nvs_flash_init();
+		ret = nvs_flash_init();	
 	}
-	esp_netif_init();
+	// esp_netif_init();
 	esp_event_loop_create_default();
-	_hotstopNetif = netif_create_default_wifi_ap();
-	assert(_hotstopNetif);
-	_clientNetif = netif_create_default_wifi_sta();
-	assert(_clientNetif);
+	// _hotstopNetif = netif_create_default_wifi_ap();
+	// assert(_hotstopNetif);
+	// _clientNetif = netif_create_default_wifi_sta();
+	// assert(_clientNetif);
 	esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
 }
 
