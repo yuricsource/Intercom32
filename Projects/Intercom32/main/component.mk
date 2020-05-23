@@ -14,14 +14,14 @@ COMPONENT_SRCDIRS           +=  ../../Esp32/Source/Hal                          
                                 ../../Esp32/Source/Hal/Camera/Driver                       \
                                 ../../Esp32/Source/Hal/Camera/Sensors                      \
                                 ../../Esp32/Source/Hal/Wifi                                \
-                                ../System/Source/Utils                                     \
-                                ../System/Source/Configuration                             \
-                                ../System/Source/Protocol                                  \
-                                ../System/Source/Application                               \
-                                ../System/Libraries/freertos-addons/Source                 \
-                                ../System/Libraries/JsonParser                             \
-                                ../System/Libraries/Arduino/Adafruit-GFX                   \
-                                ../System/Libraries/Arduino/ArduinoPort
+                                ../../Esp32/Source/Utils                                   \
+                                ../../Esp32/Source/Configuration                           \
+                                ../../Esp32/Source/Protocol                                \
+                                ../../Esp32/Source/Application                             \
+                                ../../Esp32/Libraries/freertos-addons/Source               \
+                                ../../Esp32/Libraries/JsonParser                           \
+                                ../../Esp32/Libraries/Arduino/Adafruit-GFX                 \
+                                ../../Esp32/Libraries/Arduino/ArduinoPort
 
 COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                                    \
                                 ../../Esp32/Include/Hal                                    \
@@ -29,12 +29,12 @@ COMPONENT_ADD_INCLUDEDIRS   +=  ${IDF_PATH}/components/                         
                                 ../../Esp32/Include/Hal/Camera/Driver                      \
                                 ../../Esp32/Include/Hal/Camera/Sensors                     \
                                 ../../Esp32/Include/Hal/Wifi                               \
-                                ../System/Include/Utils                                    \
-                                ../System/Include/Configuration                            \
-                                ../System/Include/Common                                   \
-                                ../System/Include/Protocol                                 \
-                                ../System/Include/Application                              \
-                                ../System/Libraries/freertos-addons/Source/include         \
-                                ../System/Libraries/JsonParser                             \
-                                ../System/Libraries/Arduino/Adafruit-GFX                   \
-                                ../System/Libraries/Arduino/ArduinoPort
+                                ../../Esp32/Include/Utils                                  \
+                                ../../Esp32/Include/Configuration                          \
+                                ../../Esp32/Include/Common                                 \
+                                ../../Esp32/Include/Protocol                               \
+                                ../../Esp32/Include/Application                            \
+                                ../../Esp32/Libraries/freertos-addons/Source/include       \
+                                ../../Esp32/Libraries/JsonParser                           \
+                                ../../Esp32/Libraries/Arduino/Adafruit-GFX                 \
+                                ../../Esp32/Libraries/Arduino/ArduinoPort
