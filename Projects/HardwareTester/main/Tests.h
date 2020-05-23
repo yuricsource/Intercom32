@@ -14,7 +14,6 @@
 void SoftwareResetTest();
 void PutCpuToSleep();
 void TestSpiffs();
-void TestSdCard();
 void WifiMenu();
 void LedMenu();
 char ReadKey();

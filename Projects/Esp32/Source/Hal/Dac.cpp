@@ -2,7 +2,7 @@
 #include "Dac.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "DebugAssert.h"
+// #include "DebugAssert.h"
 
 namespace Hal
 {
@@ -13,8 +13,8 @@ Dac::Dac(Gpio *IoPins, Gpio::GpioIndex dacIo) : _gpio(IoPins), _enabled(false)
 		_dac = DacIndex::DacChannel1;
 	else if (dacIo == Gpio::GpioIndex::Gpio26)
 		_dac = DacIndex::DacChannel2;
-	else
-		DebugAssertFail("Dac pin not supported.");
+	// else
+	// 	DebugAssertFail("Dac pin not supported.");
 	
 }
 

@@ -106,59 +106,6 @@ const char *GetTestPhrase()
 	return testPhrase;
 }
 
-void TestSdCard()
-{
-	Hardware *system = Hal::Hardware::Instance();
-	if (system->GetSdCard().Mount())
-	{
-		printf("Opening file\n");
-		FILE *f = fopen("/sdcard/hello.txt", "w");
-		if (f == NULL)
-		{
-			printf("Failed to open file for writing\n");
-			return;
-		}
-		fprintf(f, "Hello, how are you?\n");
-		fclose(f);
-		printf("File written\n");
-
-		// Check if destination file exists before renaming
-		struct stat st;
-		if (stat("/sdcard/foo.txt", &st) == 0)
-		{
-			// Delete it if it exists
-			unlink("/sdcard/foo.txt");
-		}
-
-		// Rename original file
-		printf("Renaming file\n");
-		if (rename("/sdcard/hello.txt", "/sdcard/foo.txt") != 0)
-		{
-			printf("Rename failed\n");
-			return;
-		}
-
-		// Open renamed file for reading
-		printf("Reading file\n");
-		f = fopen("/sdcard/foo.txt", "r");
-		if (f == nullptr)
-		{
-			printf("Failed to open file for reading\n");
-			return;
-		}
-		char line[64];
-		fgets(line, sizeof(line), f);
-		fclose(f);
-		// strip newline
-		char *pos = strchr(line, '\n');
-		if (pos)
-			*pos = '\0';
-		printf("Read from file: '%s'", line);
-	}
-	else
-		printf("Error: SdCard not mounted.\n");
-}
-
 void TestSpiffs()
 {
 	if (Hardware::Instance()->GetSpiffs().IsMounted() == false)
@@ -405,25 +352,25 @@ void LedMenu()
 		case 'q':
 		case 'Q':
 		{
-			Hardware::Instance()->GetLeds().SetLed(Hal::Leds::LedIndex::FlashLed);
+			//Hardware::Instance()->GetLeds().SetLed(Hal::Leds::LedIndex::FlashLed);
 		}
 		break;
 		case 'a':
 		case 'A':
 		{
-			Hardware::Instance()->GetLeds().ResetLed(Hal::Leds::LedIndex::FlashLed);
+			//Hardware::Instance()->GetLeds().ResetLed(Hal::Leds::LedIndex::FlashLed);
 		}
 		break;
 		case 'w':
 		case 'W':
 		{
-			Hardware::Instance()->GetLeds().SetLed(Hal::Leds::LedIndex::RedLed);
+			//Hardware::Instance()->GetLeds().SetLed(Hal::Leds::LedIndex::RedLed);
 		}
 		break;
 		case 's':
 		case 'S':
 		{
-			Hardware::Instance()->GetLeds().ResetLed(Hal::Leds::LedIndex::RedLed);
+			//Hardware::Instance()->GetLeds().ResetLed(Hal::Leds::LedIndex::RedLed);
 		}
 		break;
 		case 'x':
@@ -493,50 +440,7 @@ void CameraMenu()
 		{
 			Hardware *system = Hal::Hardware::Instance();
 			system->GetCamera().SetResolution(Hal::CameraFrameSize::CameraFrameSizeSVGA);
-			if (system->GetSdCard().Mount())
-			{
-				printf("Heap Before the Camera       		: %d\n", esp_get_free_heap_size());
-				Hardware::Instance()->GetCamera().Init();
-				printf("Heap After the Camera       		: %d\n", esp_get_free_heap_size());
-				for (uint8_t i = 0; i < 10; i++)
-				{
-					Hardware::Instance()->GetCamera().Capture();
-					std::array<char, 30> fileName;
 
-					snprintf(fileName.data(), fileName.size(), "/sdcard/%s%d.jpg", "pic", i + 1);
-					struct stat st;
-					if (stat(fileName.data(), &st) == 0)
-					{
-						// Delete it if it exists
-						unlink(fileName.data());
-					}
-
-					printf("Opening file\n");
-					FILE *f = fopen(fileName.data(), "wb");
-					if (f == NULL)
-					{
-						printf("Failed to open file for writing\n");
-						return;
-					}
-
-					const camera_fb_t *fb = Hardware::Instance()->GetCamera().GetFrameBuffer();
-					if (fb != nullptr)
-					{
-						printf("Photo Captured, Saving in the SD Card. Image size:%d\n", fb->len);
-						fwrite(fb->buf, fb->len, 1, f);
-						printf("Closing file\n");
-					}
-					else
-						printf("Frame Buffer failed\n");
-
-					fclose(f);
-				}
-				Hardware::Instance()->GetCamera().DeInit();
-			}
-			else
-				printf("Error: SdCard not mounted.\n");
-
-			system->GetSdCard().Unmount();
 		}
 		break;
 		case 'w':
