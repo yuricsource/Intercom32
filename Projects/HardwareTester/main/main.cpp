@@ -75,14 +75,14 @@ extern "C" void app_main(void)
 
 	char test = 0;
 	
-	Hal::Hardware::Instance()->GetWifi().Disable();
-	Hal::Hardware::Instance()->GetWifi().SetSsid("Camera Wifi", strlen("Camera Wifi"));
-	Hal::Hardware::Instance()->GetWifi().SetPassword("123cam123", strlen("123cam123"));
-	Hal::Hardware::Instance()->GetWifi().SetMode(Hal::WifiModeConfiguration::HotSpot);
-	Hal::Hardware::Instance()->GetWifi().SetAuthentication(Hal::WifiAuthenticationMode::Wpa2Psk);
-	Hal::Hardware::Instance()->GetWifi().Enable();
-	Hal::Hardware::Instance()->GetCamera().Init();
-	startCameraServer();
+	// Hal::Hardware::Instance()->GetWifi().Disable();
+	// Hal::Hardware::Instance()->GetWifi().SetSsid("Camera Wifi", strlen("Camera Wifi"));
+	// Hal::Hardware::Instance()->GetWifi().SetPassword("123cam123", strlen("123cam123"));
+	// Hal::Hardware::Instance()->GetWifi().SetMode(Hal::WifiModeConfiguration::HotSpot);
+	// Hal::Hardware::Instance()->GetWifi().SetAuthentication(Hal::WifiAuthenticationMode::Wpa2Psk);
+	// Hal::Hardware::Instance()->GetWifi().Enable();
+	// Hal::Hardware::Instance()->GetCamera().Init();
+	// startCameraServer();
 
 	while (1)
 	{

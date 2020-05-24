@@ -66,9 +66,9 @@ Hardware::Hardware() :	_gpio(),
 		printf("!!! Error: Only one instance of System can be created !!!\n");
 
 	_spiffs.Mount();
-	_timer.Initlialize();
-	_timer.AddCallback(this);
-	_timer.Start();
+	//_timer.Initlialize();
+	//_timer.AddCallback(this);
+	//_timer.Start();
 }
 
 uint32_t Hardware::GetSystemClockBase()
