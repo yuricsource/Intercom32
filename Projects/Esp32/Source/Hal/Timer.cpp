@@ -51,7 +51,6 @@ void Timer::InterruptCallback()
 	{
 		if (callbackList[i] != nullptr)
 		{
-
 			callbackList[i]->TimerCallback();
 #ifdef DEBUG_TIMER
 			printf("CallbackList %d: OKAY\n", i);

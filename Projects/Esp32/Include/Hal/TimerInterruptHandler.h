@@ -1,8 +1,8 @@
-
 #ifndef INCLUDE_HAL_INTERRUPTHANDLER_H_
 #define INCLUDE_HAL_INTERRUPTHANDLER_H_
 
 #include "HalCommon.h"
+#include "esp_attr.h"
 
 namespace Hal
 {

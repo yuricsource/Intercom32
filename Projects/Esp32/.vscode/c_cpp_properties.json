@@ -1,0 +1,47 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/esp/esp-idf/components/esp_common/include",
+                "C:/esp/esp-idf/components/freertos/include",
+                "C:/esp/esp-idf/components/driver/include",
+                "C:/esp/esp-idf/components/soc/esp32/include",
+                "C:/esp/esp-idf/components/esp32/include",
+                "C:/esp/esp-idf/components/soc/include",
+                "C:/YuriCode/Intercom32/Projects/HardwareTester/build/config",
+                "C:/esp/esp-idf/components/esp_rom/include",
+                "C:/esp/esp-idf/components/xtensa/include",
+                "C:/esp/esp-idf/components/xtensa/esp32/include",
+                "C:/esp/esp-idf/components/newlib/include",
+                "C:/esp/esp-idf/components/heap/include",
+                "C:/esp/esp-idf/components/spiffs/include",
+                "C:/esp/esp-idf/components/nghttp/nghttp2/third-party/http-parser",
+                "C:/esp/esp-idf/components/esp_event/include",
+                "C:/esp/esp-idf/components/esp_wifi/include",
+                "C:/esp/esp-idf/components/tcpip_adapter/include",
+                "C:/esp/esp-idf/components/lwip/lwip/src/include",
+                "C:/esp/esp-idf/components/coap/libcoap/examples/lwip",
+                "C:/esp/esp-idf/components/lwip/port/esp32/include",
+                "C:/esp/esp-idf/components/lwip/include/apps",
+                "C:/esp/esp-idf/components/lwip/include/apps",
+                "C:/esp/esp-idf/components/lwip/include/apps",
+                "C:/esp/esp-idf/components/esp_adc_cal/include",
+                "C:/esp/esp-idf/components/spi_flash/include",
+                "C:/esp/esp-idf/components/spi_flash/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.24.28314/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64"
+        }
+    ],
+    "version": 4
+}
