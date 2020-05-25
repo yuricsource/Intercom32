@@ -28,8 +28,12 @@ void Timer::Initlialize()
 	printf("Setting timer callback\n");
 #endif
 	// Initialize timer with 1 Hz
-	this->AutoReload = false;
 	this->Frequency = 1;
+
+	if (this->Preemption == Preemption::TIMER0)
+		this->AutoReload = false;
+	else
+		this->AutoReload = true;
 
 	for (uint8_t i = 0; i < MaxTimerCallBack; i++)
 	{
