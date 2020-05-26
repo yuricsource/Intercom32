@@ -70,7 +70,7 @@ void executetMenu(char Test)
 	printf("[S] - Test SPIFFS\n");
 	printf("[W] - WiFi Menu\n");
 	printf("[C] - Camera Menu\n");
-	printf("[D] - Test Timer [ON\OFF]\n");
+	printf("[D] - Test Timer [ON/OFF]\n");
 }
 
 extern "C" void app_main(void)
