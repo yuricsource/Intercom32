@@ -67,8 +67,8 @@ Hardware::Hardware() :	_gpio(),
 
 	_spiffs.Mount();
 	_timer.Initlialize();
-	_timer.AddCallback(this);
-	_timer.Start();
+	// _timer.AddCallback(this);
+	// _timer.Start();
 }
 
 uint32_t Hardware::GetSystemClockBase()
@@ -176,11 +176,6 @@ Hardware::~Hardware()
 uint32_t Hardware::Milliseconds()
 {
 	return xTaskGetTickCount() * portTICK_PERIOD_MS;
-}
-
-void Hardware::TimerCallback()
-{
-	_leds.Toggle(Hal::Leds::LedIndex::Blue);
 }
 
 } // namespace Hal

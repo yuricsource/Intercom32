@@ -53,6 +53,10 @@ void executetMenu(char Test)
 	case 'C':
 		CameraMenu();
 		break;
+	case 'd':
+	case 'D':
+		TestTimer();
+		break;
 	default:
 		break;
 	}
@@ -66,6 +70,7 @@ void executetMenu(char Test)
 	printf("[S] - Test SPIFFS\n");
 	printf("[W] - WiFi Menu\n");
 	printf("[C] - Camera Menu\n");
+	printf("[D] - Test Timer [ON\OFF]\n");
 }
 
 extern "C" void app_main(void)
@@ -73,6 +78,7 @@ extern "C" void app_main(void)
 	Hal::Hardware::Instance();
  	printf("Hardware Tester for ESP32\n");
 
+	TestClass testClass;
 	char test = 0;
 	
 	// Hal::Hardware::Instance()->GetWifi().Disable();

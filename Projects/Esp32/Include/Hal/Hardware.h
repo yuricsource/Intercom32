@@ -29,7 +29,7 @@
 namespace Hal
 {
 
-class Hardware : Timer::Callback
+class Hardware
 {
 public:
 	Hardware();

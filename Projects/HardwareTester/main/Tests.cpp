@@ -17,6 +17,8 @@ static const char *_STREAM_BOUNDARY = "\r\n--" PART_BOUNDARY "\r\n";
 static const char *_STREAM_PART = "Content-Type: image/jpeg\r\nContent-Length: %u\r\n\r\n";
 httpd_handle_t web_stream_httpd = NULL;
 
+bool start = true;
+
 static esp_err_t stream_handler(httpd_req_t *req)
 {
 	camera_fb_t *fb = NULL;
@@ -479,5 +481,22 @@ void CameraMenu()
 		printf("[X] - Return\n");
 
 		test = ReadKey();
+	}
+}
+
+void TestTimer()
+{
+	if (start)
+	{
+		printf("\nStarting Timer 0 with 5Hz\n");
+		Hardware::Instance()->GetTimer0().SetTimer(5);
+		Hardware::Instance()->GetTimer0().Start();
+		start = !start;
+	}
+	else
+	{
+		printf("\nStoping Timer 0\n");
+		Hardware::Instance()->GetTimer0().Stop();
+		start = !start;
 	}
 }

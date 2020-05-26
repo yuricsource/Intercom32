@@ -4,7 +4,8 @@
 namespace Hal
 {
 
-Timer::Timer(Hal::TimerInterruptHandler *itrpHandler, TimerSelect timerSelected) : interruptHandler(itrpHandler)
+Timer::Timer(Hal::TimerInterruptHandler *itrpHandler, TimerSelect timerSelected) : 
+				interruptHandler(itrpHandler)
 {
 	switch (timerSelected)
 	{
