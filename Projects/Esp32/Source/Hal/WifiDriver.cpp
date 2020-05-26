@@ -76,6 +76,8 @@ WifiDriver::WifiDriver()
 		nvs_flash_erase();
 		ret = nvs_flash_init();	
 	}
+	
+	tcpip_adapter_init();
 	// esp_netif_init();
 	esp_event_loop_create_default();
 	// _hotstopNetif = netif_create_default_wifi_ap();
